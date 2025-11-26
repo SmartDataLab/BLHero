@@ -1,0 +1,34 @@
+stages:
+- install
+- build
+
+
+install-staging:
+  stage: install
+  tags:
+    - build
+  only:
+  - master
+  script:
+  - echo "=====start install====="
+  - npm install --ignore-scripts
+  - echo "=====end install====="
+  artifacts:
+    expire_in: 60 mins
+    paths:
+    - node_modules/
+  
+build-staging:
+  stage: build
+  tags:
+    - build
+  only:
+  - master
+  script:
+  - echo "=====start build====="
+  - npm run build:prod
+  - echo "=====end build====="
+  - echo "=====start deploy====="
+  - sudo /bin/cp -rf ./dist/ /game/x1/backstage-vue
+  - echo "=====end deploy====="
+
