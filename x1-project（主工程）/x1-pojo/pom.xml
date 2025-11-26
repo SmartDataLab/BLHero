@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>xiugou</groupId>
+		<artifactId>x1-project</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	
+	<artifactId>x1-pojo</artifactId>
+	
+	<dependencies>
+		<dependency>
+			<groupId>gaming-project</groupId>
+			<artifactId>gaming-prefab</artifactId>
+			<version>${gaming.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>xiugou</groupId>
+			<artifactId>x1-protobuf</artifactId>
+			<version>${xiugou.x1.version}</version>
+		</dependency>
+    </dependencies>
+    
+</project>

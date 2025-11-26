@@ -1,0 +1,12 @@
+
+通过镜像运行一个服务器容器
+docker run \
+	-d \
+	--name x1-backstage \
+	-p 9001:9001 \
+	-v /game/x1/backstage/config:/game/x1/config \
+	-v /game/x1/backstage/logs:/game/x1/logs \
+	x1-backstage:202408011000
+
+进入到容器内部
+docker exec -it 容器名 bash	

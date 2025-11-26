@@ -1,0 +1,26 @@
+
+通过镜像运行一个服务器容器
+docker run \
+	-d \
+	--name x1-game-server4 \
+	-p 10004:10004 \
+	-p 20004:20004 \
+	-v /game/x1/game-server-4/config:/game/x1/config \
+	-v /game/x1/game-server-4/csv:/game/x1/csv \
+	-v /game/x1/game-server-4/mapdata:/game/x1/mapdata \
+	-v /game/x1/game-server-4/uploadfiles:/game/x1/uploadfiles \
+	x1-game-server:202408021600
+	
+docker run \
+	-d \
+	--name x1-game-server5 \
+	-p 10005:10005 \
+	-p 20005:20005 \
+	-v /game/x1/game-server-5/config:/game/x1/config \
+	-v /game/x1/game-server-5/csv:/game/x1/csv \
+	-v /game/x1/game-server-5/mapdata:/game/x1/mapdata \
+	-v /game/x1/game-server-4/uploadfiles:/game/x1/uploadfiles \
+	x1-game-server:202408021600
+
+进入到容器内部
+docker exec -it 容器名 bash	

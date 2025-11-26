@@ -1,0 +1,4 @@
+合服注意事项
+RankReward 只保留主服的数据
+ShopSystem 只保留主服的数据
+PurgatorySystem 只保留主服的数据

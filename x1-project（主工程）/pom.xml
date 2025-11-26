@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.0.RELEASE</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>xiugou</groupId>
+	<artifactId>x1-project</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1</version>
+
+	<modules>
+		<module>x1-protobuf</module>
+		<module>x1-battle</module>
+		<module>x1-design</module>
+		<module>x1-pojo</module>
+		<module>x1-game-server</module>
+		<module>x1-backstage</module>
+    <module>x1-cross-server</module>
+  </modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.jdk>1.8</project.build.jdk>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
+		<gaming.version>0.0.1</gaming.version>
+		<xiugou.x1.version>0.0.1</xiugou.x1.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>game</groupId>
+				<artifactId>gaming-agent</artifactId>
+				<version>${gaming.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-thirds</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<!-- 把第三方的jar拷贝在common-libs目录下 -->
+						<configuration>
+							<echo message="${project.build.directory}"/>
+						    <outputDirectory>${project.build.directory}/common-libs</outputDirectory>
+							<outputDirectory>../common-libs</outputDirectory>
+							<excludeGroupIds>game,xiugou,gaming-project</excludeGroupIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

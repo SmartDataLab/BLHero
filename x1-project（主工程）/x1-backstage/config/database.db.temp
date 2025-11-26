@@ -1,0 +1,2 @@
+{"id":1,"alias":"backstage","ipPort":"127.0.0.1:3306","dbName":"x1_backstage","user":"root","password":"123456","minIdle":1,"maxActive":5,"maxWaitMillis":60000}
+{"id":1,"alias":"backlog","ipPort":"127.0.0.1:3306","dbName":"x1_backlog","user":"root","password":"123456","minIdle":1,"maxActive":5,"maxWaitMillis":60000}

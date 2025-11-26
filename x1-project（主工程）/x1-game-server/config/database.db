@@ -1,0 +1,2 @@
+{"id":1,"alias":"game","ipPort":"127.0.0.1:3306","dbName":"x1_4_game","user":"root","password":"123456","minIdle":1,"maxActive":5,"maxWaitMillis":60000}
+{"id":1,"alias":"log","ipPort":"127.0.0.1:3306","dbName":"x1_4_log","user":"root","password":"123456","minIdle":1,"maxActive":5,"maxWaitMillis":60000}
