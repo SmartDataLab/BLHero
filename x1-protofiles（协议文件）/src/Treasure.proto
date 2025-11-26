@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.treasure";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message TreasureInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3000001;}
+	
+	repeated PbRechargeShop recharge_shops = 1;
+	int32 server_open_day = 2;	//服务器开服天数
+}
+
+//珍宝阁购买成功推送
+message TreasureBuyMessage {
+	enum Proto {UNKNOWN = 0; ID = 3000002;}
+
+	int32 shop_id = 1; 	//商店ID
+	PbKeyV product = 2;	//充值商品ID-购买数量
+}
+
+//领取免费商品
+message TreasureTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3000003;}
+	
+	int32 shop_id = 1; 	//商店ID
+	int32 reward_id = 2;//免费商品ID
+}
+message TreasureTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3000003;}
+	
+	int32 shop_id = 1; 	//商店ID
+	PbKeyV product = 2;	//充值商品ID-购买数量
+}
+
+message PbRechargeShop {
+	int32 shop_id = 1; 			//商店ID
+	repeated PbKeyV product = 2;//充值商品ID-购买数量
+	int64 reset_time = 3; 		//下次重置时间单位毫秒
+	int32 period = 4;			//期数
+}

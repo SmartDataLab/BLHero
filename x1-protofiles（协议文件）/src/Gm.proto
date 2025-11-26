@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.gm";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+message GmRequest {
+	enum Proto {UNKNOWN = 0; ID = 800001;}
+
+	string value = 1;      //命令
+}
+message GmResponse {
+	enum Proto {UNKNOWN = 0; ID = 800001;}
+
+	bool success = 1;  //是否成功
+}
+message GmServerTimeMessage {
+	enum Proto {UNKNOWN = 0; ID = 800002;}
+	
+	int32 open_server_days = 1;//开服天数
+	int64 server_timestamp = 2;//服务器时间戳
+}

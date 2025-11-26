@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.chat";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "Chat.proto";
+
+//聊天远程调用，客户端忽略
+message ChatToRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3610001;}
+	
+	int32 channel = 1;			//频道
+	int64 target_id = 2;		//目标ID，好友聊天时传玩家ID
+	PbChatData chat_data = 3;	//聊天信息
+	bool doubt = 4;				//是否可疑
+	string ori_content = 5;		//原始内容
+}
+message ChatToRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3610001;}
+	
+	int32 channel = 1;			//频道
+	int64 target_id = 2;		//目标ID，好友聊天时传玩家ID
+	PbChatData chat_data = 3;	//聊天信息
+	bool doubt = 4;				//是否可疑
+}

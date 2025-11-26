@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.village";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+import "Hero.proto";
+import "Battle.proto";
+
+//村庄守护数据
+message VillageInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2700001;}
+  
+	int32 level = 1; 			//关卡ID（相当于sceneId）
+	int32 today_times = 2; 		//今日挑战次数
+	int64 next_reset_time = 3;	//下次重置时间
+}
+
+
+//扫荡
+message VillageSweepRequest {
+	enum Proto {UNKNOWN = 0; ID = 2700002;}
+	
+	int32 level = 1; //关卡
+}
+message VillageSweepResponse {
+	enum Proto {UNKNOWN = 0; ID = 2700002;}
+}
+
+//召唤英雄
+message VillageConfirmHeroRequest {
+	enum Proto {UNKNOWN = 0; ID = 2700003;}
+	
+	int32 hero_id = 1; //英雄ID
+}
+
+message VillageConfirmHeroResponse {
+	enum Proto {UNKNOWN = 0; ID = 2700003;}
+	
+	int32 hero_id = 1; 		//英雄ID
+	PbSprite sprite = 2;	//新参战的单位
+}
+
+//建筑
+message VillageBuildRequest {
+	enum Proto {UNKNOWN = 0; ID = 2700004;}
+	//客户端自行判断 是建造哪个栅栏
+}
+
+message VillageBuildResponse {
+	enum Proto {UNKNOWN = 0; ID = 2700004;}
+	
+	int32 build_num = 1; //上限为3个栅栏
+}
+
+
+message PbVillageBattleResult {
+	int32 level = 1;				//关卡
+	repeated PbThing rewards = 2;	//通关奖励
+	repeated PbHero heros = 3;  	//供选择的英雄
+	int32 build_nu = 4; 			//已经建造的栅栏数量最高为三个
+}
+message PbVillageBattleParam {
+	int32 stage = 1; //波
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.vip";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//Vip特权信息
+message VipInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3100001;}
+	
+	repeated int32 privilege_id = 1; 	//已经开通的特权表ID
+	repeated int32 vip_level_gift = 2;	//已经购买的vip等级礼包 （记录vip等级）
+	repeated PbKeyV boosts = 3;			//VIP加成项，key的定义在下面，value是具体加成数值
+}
+
+//购买Vip等级礼包
+message VipBuyGiftRequest {
+	enum Proto {UNKNOWN = 0; ID = 3100002;}
+	
+	int32 vip_level = 1; //购买的Vip等级礼包
+}
+message VipBuyGiftResponse {
+	enum Proto {UNKNOWN = 0; ID = 3100002;}
+	
+	int32 vip_level = 1; //购买的Vip等级礼包
+}
+
+//	101, 野外挂机杀怪金币加成，万分比，需要后端实现
+//	102, 野外挂机杀怪经验加成，万分比，需要后端实现
+//	103, 黄金猪副本挑战次数，次数，需要后端实现
+//	104, 招募一键全抽，大于1表示具有权限，需要前后端实现
+//	105, 开启离线挂机，大于1表示具有权限
+//	106, 免广告特权，大于1表示具有权限，需要前端实现
+//	107, 挑战副本自动战斗，大于1表示具有权限，需要前端实现
+//	108, 秘境连续挑战，大于1表示具有权限，需要前端实现
+//	109, 竞技场挑战次数，次数，需要后端实现
+//	110, 主城木场生产加成，万分比，需要后端实现
+//	111, 主城矿脉生产加成，万分比，需要后端实现
+//	112, 主城钱庄生产加成，万分比，需要后端实现

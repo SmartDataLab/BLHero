@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.refineevil";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//炼妖数据
+message RefineEvilInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500001;}
+	
+	repeated PbRefineEvilDetail refine_evil_detail = 1;
+	repeated PbEvil evils = 2;		//妖录数据
+	int64 speed_up_time = 3;		//加速时间/分
+}
+//添加炼制妖魂
+message RefineEvilSoulRequest {
+	enum Proto {UNKNOWN = 0; ID = 2500002;}
+	
+	int32 evil_soul_id = 1;//妖魂ID
+}
+message RefineEvilSoulResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500002;}
+	
+	PbRefineEvilDetail refine_evil_detail = 1;
+}
+
+//领取炼制奖励
+message RefineEvilRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2500003;}
+	
+	int32 position = 1;//位置 目前设定只有4个位置 从0开始
+}
+message RefineEvilRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500003;}
+	
+	repeated PbRefineEvilDetail refine_evil_detail = 1;
+	PbThingReceipt receipt = 2;	//奖励回执
+}
+
+//一键添加
+message RefineEvilOnclickRequest {
+	enum Proto {UNKNOWN = 0; ID = 2500004;}
+}
+message RefineEvilOnclickResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500004;}
+	
+	repeated PbRefineEvilDetail refine_evil_detail = 1;
+}
+
+//升阶
+message RefineEvilUpLevelRequest {
+	enum Proto {UNKNOWN = 0; ID = 2500005;}
+	
+	int32 identity = 1;//妖ID
+}
+message RefineEvilUpLevelResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500005;}
+	
+	PbEvil evil = 1;
+}
+
+//加速卡
+message RefineEvilSpeedUpRequest {
+	enum Proto {UNKNOWN = 0; ID = 2500006;}
+	
+	int32 type = 1; 	//加速全部1 加速当前0
+	bool buy_time = 2;	//是否购买加速时间
+}
+message RefineEvilSpeedUpResponse {
+	enum Proto {UNKNOWN = 0; ID = 2500006;}
+	
+	repeated PbRefineEvilDetail refine_evil_detail = 1;
+}
+
+
+//炼妖详情
+message PbRefineEvilDetail {
+	int32 position = 1;		//位置
+	int32 evil_soul_id = 2; //妖魂ID
+	int32 status = 3;		//状态 0等待 1正在炼制 2炼制完成
+	int64 start_time = 4;	//开始时间
+	int64 end_time = 5;		//炼妖结束时间
+}
+//妖录
+message PbEvil {
+	int32 identity = 1;	//妖标识
+	int32 level = 2;	//阶
+	int64 fragment = 3;	//碎片
+}

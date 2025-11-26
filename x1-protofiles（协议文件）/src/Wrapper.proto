@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+/**
+ * 用于封装"消息"的包装结构
+ */
+message MessageWrapper {
+	int32 id = 1; 		//消息ID
+	int32 proto_id = 2;	//协议号ID
+    bytes data = 3;		//数据
+}

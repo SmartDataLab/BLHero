@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.privilegenormal";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+
+//普通特权信息
+message PrivilegeNormalInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3400001;}
+	
+	repeated PbPrivilegeNormalData privileges = 1; //特权列表
+	int64 exp_pool = 2;							//经验池经验量
+}
+
+//领取特权每日奖励
+message PrivilegeNormalTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3400002;}
+	
+	int32 privilege_id = 1;	//特权ID
+}
+message PrivilegeNormalTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3400002;}
+	
+	int32 privilege_id = 1;	//特权ID
+}
+
+//领取经验池奖励
+message PrivilegeNormalTakeExpRequest {
+	enum Proto {UNKNOWN = 0; ID = 3400003;}
+}
+message PrivilegeNormalTakeExpResponse {
+	enum Proto {UNKNOWN = 0; ID = 3400003;}
+	
+	int64 exp_pool = 1;	//经验池经验量
+}
+
+//充值成功推送
+message PrivilegeNormalRechargeMessage {
+	enum Proto {UNKNOWN = 0; ID = 3400004;}
+	
+	PbPrivilegeNormalData privilege = 1;	//特权
+}
+
+message PbPrivilegeNormalData {
+	int32 id = 1;		//特权ID
+	bool rewarded = 2;	//今日特权奖励是否已经领取
+	int64 end_time = 3;	//特权失效时间，毫秒，0表示永久生效
+}

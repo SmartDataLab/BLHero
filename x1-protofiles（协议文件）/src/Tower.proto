@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.tower";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//塔信息
+message TowerInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1800001;}
+	
+	int32 normal_layer = 1;		//普通塔已通关层数
+	int32 strength_layer = 2;	//力量塔已通关层数
+	int32 agility_layer = 3;	//敏捷塔已通关层数
+	int32 wisdom_layer = 4;		//智力塔已通关层数
+}
+
+message PbTowerBattleParam {
+	
+}
+
+message PbTowerBattleResult {
+	int32 tower_type = 1;	//塔类型，1普通，2力量，3敏捷，4智力
+	int32 layer = 2;		//层数
+	repeated PbThing rewards = 3;//通关奖励
+}

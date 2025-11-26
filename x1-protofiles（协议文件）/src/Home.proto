@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.bag";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//家园数据请求
+message HomeInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1500001;}
+
+	int32 store_lv = 1;						//仓库等级，从0开始
+	repeated PbHomeProducer producers = 2;	//资源产出池
+	repeated PbHomeBuilding buildings = 3;	//建筑列表
+}
+
+//建筑激活
+message HomeBuildingActivateRequest {
+	enum Proto {UNKNOWN = 0; ID = 1500002;}
+	
+	int32 building_id = 1; //建筑ID
+}
+message HomeBuildingActivateResponse {
+	enum Proto {UNKNOWN = 0; ID = 1500002;}
+	
+	PbHomeBuilding building = 1;	//建筑数据
+	int32 store_lv = 2;				//仓库等级，大于0才进行赋值
+	PbHomeProducer producer = 3;	//资源产出池，需判断空
+}
+
+
+//家园资源池升级
+message HomeProducerLevelUpRequest {
+	enum Proto {UNKNOWN = 0; ID = 1500003;}
+	
+	int32 building_id = 1; //产出池ID
+}
+message HomeProducerLevelUpResponse {
+	enum Proto {UNKNOWN = 0; ID = 1500003;}
+	
+	PbHomeProducer producer = 1;
+}
+
+//领取产出
+message HomeTakeProduceRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 1500004;}
+	
+	int32 building_id = 1; //产出池ID
+}
+message HomeTakeProduceRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 1500004;}
+	
+	PbHomeProducer producer = 1;
+}
+
+//建筑数据
+message PbHomeBuilding {
+	int32 id = 1;				//建筑ID
+	bool active = 2;			//是否已激活
+	PbSceneOpening opening = 3;	//交付数据
+}
+
+//资源产出池
+message PbHomeProducer {
+	int32 id = 1;			//建筑ID
+ 	int32 level = 2;		//产出等级
+	int64 start_time = 3;	//开始产出的时间
+	int64 produce = 4;		//已产出的数量
+}

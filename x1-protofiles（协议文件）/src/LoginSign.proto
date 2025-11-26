@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.loginsign";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//登录签到数据推送
+message LoginSignInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3300001;}
+
+	int32 login_day = 1;		//已经领取完的登录奖励天数
+	int32 open_server_day = 2;	//已开服天数
+	int32 sign_day = 3;			//已经领取完的登录奖励天数
+	int32 can_sign_day = 4;		//可以签到至的天数
+}
+
+//领取登录豪礼奖励
+message LoginSignTakeLoginRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3300002;}
+}
+message LoginSignTakeLoginRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3300002;}
+	
+	int32 login_day = 1;	//已经领取完的登录奖励天数
+}
+
+//领取签到奖励
+message LoginSignTakeSignRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3300003;}
+}
+message LoginSignTakeSignRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3300003;}
+	
+	int32 sign_day = 1;		//已经领取完的登录奖励天数
+	bool take_sign = 2;		//今天是否可以领取登录奖励
+	int32 can_sign_day = 3;	//可以签到至的天数
+}

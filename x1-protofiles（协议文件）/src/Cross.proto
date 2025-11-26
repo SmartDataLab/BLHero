@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.cross";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//服务器连接跨服
+message GameConnectConfirmRequest {
+	enum Proto {UNKNOWN = 0; ID = 101001;}
+	
+	int32 main_server_id = 1;			//主服务器ID
+	repeated int32 merge_server_ids = 2;//被合服服务器ID列表
+}
+message GameConnectConfirmResponse {
+	enum Proto {UNKNOWN = 0; ID = 101001;}
+	
+	int32 server_id = 1;	//主服务器ID
+}
+
+
+//玩家跨服消息包装
+message PlayerCrossWrapper {
+	enum Proto {UNKNOWN = 0; ID = 101002;}
+	
+	int64 player_id = 1;//玩家ID
+	int32 id = 2; 		//消息ID
+	int32 proto_id = 3;	//协议号ID
+    bytes data = 4;		//数据
+    int64 sync_id = 5;	//同步ID
+}
+
+//玩家跨服跳转消息包装
+message PlayerToOtherRequestWrapper {
+	enum Proto {UNKNOWN = 0; ID = 101003;}
+
+	int64 from_player_id = 1;	//来自玩家ID
+	int32 from_server_id = 2;	//来自玩家的服务器ID
+	int64 to_player_id = 3;		//去往玩家ID
+	int32 to_server_id = 4;		//去往玩家的服务器ID
+	int32 id = 5; 				//消息ID
+	int32 proto_id = 6;			//协议号ID
+    bytes data = 7;				//数据
+    int64 sync_id = 8;			//同步ID
+}
+
+//玩家跨服跳转消息包装
+message PlayerToOtherResponseWrapper {
+	enum Proto {UNKNOWN = 0; ID = 101004;}
+
+	int64 from_player_id = 1;	//来自玩家ID
+	int32 from_server_id = 2;	//来自玩家的服务器ID
+	int64 to_player_id = 3;		//去往玩家ID
+	int32 to_server_id = 4;		//去往玩家的服务器ID
+	int32 id = 5; 				//消息ID
+	int32 proto_id = 6;			//协议号ID
+    bytes data = 7;				//数据
+    int64 sync_id = 8;			//同步ID
+}
+
+//测试同步请求RPC
+message PlayerTestSyncWriteRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 101005;}
+	
+	int32 some_id = 1;
+	string some_str = 2;
+}
+message PlayerTestSyncWriteRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 101005;}
+	
+	int32 some_id = 1;
+	string some_str = 2;
+}

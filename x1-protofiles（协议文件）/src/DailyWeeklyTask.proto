@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.dailyweeklytask";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message DailyWeeklyInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1400001;}
+	
+	int32 dayPoints = 1;					//日常活跃点
+	int32 weekPoints = 2;					//周常活跃点
+	repeated int32 day_point_reward = 3;	//日常活跃奖励
+	repeated int32 week_point_reward = 4;	//周常活跃奖励
+	repeated PbTask daily_tasks = 5;		//日常任务列表
+	repeated PbTask weekly_tasks = 6;		//周常任务列表
+	int64 daily_reset_time = 7;				//日常重置时间
+	int64 weekly_reset_time = 8;			//周常重置时间
+}
+
+//领取任务奖励
+message DailyWeeklyRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 1400002;}
+	
+	int32 type = 1;	//1日常 2周常
+}
+message DailyWeeklyRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 1400002;}
+	
+	int32 type = 1;				//1日常 2周常
+	repeated PbTask tasks = 2;	//领取状态更新的任务
+	int32 points = 3;			//活跃点
+}
+
+//领取活跃度奖励
+message DailyWeeklyBoxRequest {
+	enum Proto {UNKNOWN = 0; ID = 1400003;}
+	
+	int32 type = 1;	//1日常 2周常
+}
+message DailyWeeklyBoxResponse {
+	enum Proto {UNKNOWN = 0; ID = 1400003;}
+	
+	int32 type = 1;				//1日常 2周常
+	repeated int32 box_nums = 2;//刚领取的奖励序号，增量数据
+}

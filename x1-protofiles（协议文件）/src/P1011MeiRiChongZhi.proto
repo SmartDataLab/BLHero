@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//每日充值
+message MeiRiChongZhiInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101101;}
+
+	int32 type_id = 1;	//活动类型ID
+}
+message MeiRiChongZhiInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101101;}
+
+	int32 type_id = 1;			//活动类型ID
+	repeated PbTask tasks = 2;	//任务信息
+}
+
+//领取奖励
+message MeiRiChongZhiTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101102;}
+
+	int32 type_id = 1;	//活动类型ID
+	int32 task_id = 2;	//奖励ID
+	int32 select_item = 3;	//自选奖励道具ID
+}
+message MeiRiChongZhiTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101102;}
+
+	int32 type_id = 1;	//活动类型ID
+	PbTask tasks = 2;	//任务信息
+	repeated PbTask new_tasks = 3;	//新一轮的奖励，永远没值
+}
+
+//活动配置
+message MeiRiChongZhiCfgRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101103;}
+	
+	int32 type_id = 1;	//活动类型ID
+}
+message MeiRiChongZhiCfgResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101103;}
+	
+	int32 type_id = 1;	//活动类型ID
+	repeated PbMeiRiChongZhiCfg cfgs = 2;	//配置
+}
+
+//数据变化后的推送
+message MeiRiChongZhiChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 2101104;}
+	
+	int32 type_id = 1;	//活动类型ID
+	PbTask tasks = 2;	//任务信息
+}
+
+
+message PbMeiRiChongZhiCfg {
+	int32 id = 1;
+	int32 index = 2;
+	int64 task_target_num = 3;
+	repeated PbItem select_rewards = 4;
+	repeated PbItem rewards = 5;
+	string desc = 6;
+}

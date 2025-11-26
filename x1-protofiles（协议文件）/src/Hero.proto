@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.hero";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "BattleAttr.proto";
+import "MiniStruct.proto";
+
+//英雄列表数据
+message HeroListResponse {
+	enum Proto {UNKNOWN = 0; ID = 700001;}
+
+	repeated PbHero heroes = 1;  			//英雄列表
+	repeated PbHero unactive_heroes = 2;	//未激活的英雄列表
+}
+
+//英雄升级
+message HeroLevelUpRequest {
+	enum Proto {UNKNOWN = 0; ID = 700002;}
+
+	int32 identity = 1;  //英雄类型
+}
+message HeroLevelUpResponse {
+	enum Proto {UNKNOWN = 0; ID = 700002;}
+
+	PbHero hero = 1;	//英雄数据
+}
+
+//英雄战力属性发生变化的推送
+message HeroFightingChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 700003;}
+	
+	repeated PbHero heroes = 1;  //属性发生变化的英雄
+}
+
+message HeroAwakenRequest {
+	enum Proto {UNKNOWN = 0; ID = 700004;}
+	
+	int32 identity = 1;	//英雄标识
+	repeated PbItem items = 2;	//选用的素材英雄碎片
+}
+message HeroAwakenResponse {
+	enum Proto {UNKNOWN = 0; ID = 700004;}
+	
+	PbHero hero = 1;	//英雄数据
+}
+
+//英雄数据 
+message PbHero {
+	int32 identity = 1;	//英雄类型
+	int32 level = 2;	//英雄等级
+	int64 fragment = 3;	//碎片数量
+	int64 fighting = 4;	//战斗力
+	PbBattleAttr panel_attr = 5;//面板属性
+	bool first_get = 6;	//是否首次得到英雄
+	int32 awaken_level = 7;	//觉醒等级
+}
+

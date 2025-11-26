@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.dayrecharge";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+message DayRechargeInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2900001;}
+
+	bool buy_all = 1;				//是否已经一键购买所有礼包
+	repeated int32 day_recharge = 2;//散装购买的商品ID
+	bool free_reward = 3;			//是否领取免费礼包
+	int32 buy_round = 4;			//当前可购的轮数
+}
+
+//领取免费好礼
+message DayRechargeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2900002;}
+}
+message DayRechargeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2900002;}
+	
+	bool free_reward = 1;//是否领取免费礼包
+}
+
+//每日礼包购买推送
+message DayRechargeBuyMessage {
+	enum Proto {UNKNOWN = 0; ID = 2900003;}
+	
+	bool buy_all = 1;				//是否已经一键购买所有礼包
+	repeated int32 day_recharge = 2;//散装购买的商品ID
+	int32 buy_round = 3;			//当前可购的轮数
+}

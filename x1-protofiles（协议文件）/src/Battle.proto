@@ -1,0 +1,222 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.battle";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+import "Formation.proto";
+import "BattleAttr.proto";
+
+//进入战斗
+message EnterBattleRequest {
+	enum Proto {UNKNOWN = 0; ID = 300001;}
+	
+	int32 battle_type = 1;		//战斗类型
+	int32 map_id = 2;			//地图ID，有不同的配置指向
+	int32 main_hero = 3;		//对长英雄标识
+	bytes battle_params = 4;	//战斗参数
+	repeated PbFormationPos pos_list = 5;	//出战英雄站位列表，位置从1开始
+	int32 type = 6;				//前端传啥返回啥
+}
+message EnterBattleResponse {
+	enum Proto {UNKNOWN = 0; ID = 300001;}
+	
+	int32 battle_type = 1;			//战斗类型
+	int32 map_id = 2;				//地图ID
+	repeated PbSprite heroes = 3;	//出战英雄
+	int32 main_hero = 4;			//对长英雄标识
+	bytes battle_params = 5;		//战斗参数
+	int32 type = 6;				//前端传啥返回啥
+}
+
+//进入某个区域
+message EnterZoneRequest {
+	enum Proto {UNKNOWN = 0; ID = 300002;}
+	
+	int32 zone_id = 1;		//区域ID
+}
+message EnterZoneResponse {
+	enum Proto {UNKNOWN = 0; ID = 300002;}
+	
+	int32 zone_id = 1;		//区域ID
+}
+
+//请求某个区域的数据
+message ZoneInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 300003;}
+	
+	int32 zone_id = 1;		//区域ID
+}
+message ZoneInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 300003;}
+	
+	PbZone zone = 1;
+}
+
+//团灭后复活
+message BattleReviveRequest {
+	enum Proto {UNKNOWN = 0; ID = 300006;}
+	
+}
+message BattleReviveResponse {
+	enum Proto {UNKNOWN = 0; ID = 300006;}
+	
+	repeated PbSprite heroes = 1;	//出战英雄
+}
+
+//放弃当前战斗
+message BattleGiveUpRequest {
+	enum Proto {UNKNOWN = 0; ID = 300007;}
+	
+}
+message BattleGiveUpResponse {
+	enum Proto {UNKNOWN = 0; ID = 300007;}
+	
+}
+
+//杀死怪物
+message BattleKillSpriteRequest {
+	enum Proto {UNKNOWN = 0; ID = 300008;}
+	
+	repeated int32 sprite_ids = 1;	//被杀死的精灵ID
+	int32 serial_id = 2;			//递增ID
+}
+message BattleKillSpriteResponse {
+	enum Proto {UNKNOWN = 0; ID = 300008;}
+	
+	repeated PbKillSprite sprites = 1;	//被杀的精灵
+	int32 serial_id = 2;				//递增ID
+	PbBattleEndData end_data = 3;		//战斗结束的数据
+}
+
+//离线重连后同步杀死怪物
+message BattleSyncKillMonsterRequest {
+	enum Proto {UNKNOWN = 0; ID = 300009;}
+	
+	repeated PbKeyV kill_monsters = 1;	//被杀死的怪物，key怪物的配置ID，value是杀掉的数量
+}
+message BattleSyncKillMonsterResponse {
+	enum Proto {UNKNOWN = 0; ID = 300009;}
+	
+}
+
+//复活英雄
+message BattleRebornSpriteRequest {
+	enum Proto {UNKNOWN = 0; ID = 300011;}
+	
+	repeated int32 sprite_ids = 1;	//被复活的精灵ID
+}
+message BattleRebornSpriteResponse {
+	enum Proto {UNKNOWN = 0; ID = 300011;}
+	
+	repeated PbSprite sprites = 1;	//被复活的精灵ID
+}
+
+//战斗结算，战斗时间结束了，或者其他特殊的条件判定战斗结束，则需要发战斗结算
+message BattleSettleRequest {
+	enum Proto {UNKNOWN = 0; ID = 300012;}
+
+}
+message BattleSettleResponse {
+	enum Proto {UNKNOWN = 0; ID = 300012;}
+
+	PbBattleEndData end_data = 1;	//战斗结束的数据
+}
+
+//战斗GM出怪
+message BattleSpawnMonsterGmMessage {
+	enum Proto {UNKNOWN = 0; ID = 300013;}
+	
+	int32 battle_type = 1;	//战斗类型
+	PbSprite sprite = 2;	//GM增加的精灵
+}
+
+
+//更换出战英雄
+message SwitchBattleHeroRequest {
+	enum Proto {UNKNOWN = 0; ID = 300101;}
+	
+	int32 main_hero = 1;					//对长英雄标识
+	repeated PbFormationPos pos_list = 2;	//出战英雄站位列表，位置从1开始
+}
+message SwitchBattleHeroResponse {
+	enum Proto {UNKNOWN = 0; ID = 300101;}
+	
+	repeated PbSprite heroes = 1;	//出战英雄
+	int32 main_hero = 2;			//对长英雄标识
+}
+
+
+message PbTreasureEvent {
+	int32 item_id = 1;	//资源ID
+	int64 num = 2;		//资源数量
+	int32 up_item_id = 3;	//升级后的资源ID
+	int64 up_num = 4;		//升级后的资源数量
+	int64 disappear_time = 5;	//宝箱消失时间
+}
+
+message PbSprite {
+	int32 id = 1;			//精灵唯一ID
+	PbSpriteType type = 2;	//精灵类型
+	int32 identity = 3;		//英雄标识、怪物ID（对应G怪物表）
+	int32 level = 4;		//精灵等级
+	int64 reborn_time = 5;	//重生时间，毫秒，0不进行重生
+	int32 ctype = 6;		//对于怪物来说的刷新方式1世界坐标附近区域随机刷新，2世界坐标定点刷新
+	int32 cx = 7;			//地图文件中的世界坐标
+	int32 cy = 8;			//地图文件中的世界坐标
+	PbBattleAttr battle_attr = 9;	//战斗属性
+	int32 config_id = 10;	//配置ID
+	int32 fog_area = 11;	//迷雾ID
+}
+
+message PbKillSprite {
+	int32 id = 1;			//精灵唯一ID
+	int64 reborn_time = 2;	//重生时间，毫秒，小于等于0不进行重生
+	repeated PbItem drops = 3;	//掉落物，仅用于展示
+	bool has_box = 4;		//是否有掉落宝箱
+	int32 book = 5;			//掉落的书本，雷书、冰书、治疗书、加速书等
+}
+
+enum PbSpriteType {
+	UNKNOWN_SPRITE_TYPE = 0;
+	HERO = 1;
+	MONSTER = 2;
+}
+
+message PbZone {
+	int32 zone_id = 1;				//区域ID
+	repeated PbSprite sprites = 2;	//怪物、敌对英雄
+	repeated PbHarvest harvests = 3;//资源点
+	PbSprite aid_sprite = 4;		//援军
+	int32 remove_sprite_id = 5;		//需要移除的作战单位ID
+}
+
+//可被收割的资源点
+message PbHarvest {
+	int32 id = 1;			//资源点唯一ID
+	int32 identity = 2;		//资源标识（对应S收割资源类型表），树木、草堆、矿石、大矿石等等
+	int64 reborn_time = 3;	//重生时间，毫秒
+	int32 ctype = 4;		//刷新方式1世界坐标附近区域随机刷新，2世界坐标定点刷新
+	int32 cx = 5;			//地图文件中的世界坐标
+	int32 cy = 6;			//地图文件中的世界坐标
+	int32 fog_area = 7;		//迷雾ID
+}
+
+//战斗状态
+enum PbBattleEndStatus {
+	NO_STATUS = 0;
+	BATTLING = 1;				//正在战斗，还有单位存活
+	WAIT_REVIVE = 2;			//等待复活，需弹出复活界面
+	ATK_ALL_DEAD_CAMPING = 3;	//攻方全员死亡，但是在露营中
+	DEF_ALL_DEAD_NEXT = 4;		//守方全员死亡，需要进去下一层
+	WIN = 5;					//胜利
+	FAIL = 6;					//失败
+}
+
+message PbBattleEndData {
+	PbBattleEndStatus status = 1;	//战斗结束状态
+	bytes data = 2;					//战斗结束的数据，根据战斗类型进行解释
+}
+

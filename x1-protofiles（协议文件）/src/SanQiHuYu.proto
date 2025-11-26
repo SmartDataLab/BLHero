@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.sanqihuyu";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//37互娱的数据
+message SanQiHuYuInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3200101;}
+	
+	bool ask_list = 1;	//是否已领取调查问卷奖励
+}
+
+//跳转到调查问卷
+message SanQiHuYuJumpAskRequest {
+	enum Proto {UNKNOWN = 0; ID = 3200102;}
+}
+message SanQiHuYuJumpAskResponse {
+	enum Proto {UNKNOWN = 0; ID = 3200102;}
+	
+	bool ask_list = 1;	//是否已领取调查问卷奖励
+}

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.chat";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//获取聊天频道信息
+message ChatChannelInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 3600001;}
+	
+	int32 channel = 1;	//频道
+	int64 target_id = 2;//目标ID，好友聊天时传玩家ID
+}
+message ChatChannelInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3600001;}
+	
+	int32 channel = 1;				//频道
+	int64 target_id = 2;			//目标ID，好友聊天时传玩家ID
+	repeated PbChatData chat_datas = 3;//聊天信息
+	int64 chat_cd = 4;				//聊天冷却时间
+}
+
+//在某个频道进行聊天
+message ChatToRequest {
+	enum Proto {UNKNOWN = 0; ID = 3600002;}
+	
+	int32 channel = 1;	//频道
+	int64 target_id = 2;//目标ID，好友聊天时传玩家ID
+	string content = 3;	//说话内容
+}
+message ChatToResponse {
+	enum Proto {UNKNOWN = 0; ID = 3600002;}
+	
+	int32 channel = 1;	//频道
+	int64 chat_cd = 2;	//聊天冷却时间
+}
+
+//聊天消息推送
+message ChatToMessage {
+	enum Proto {UNKNOWN = 0; ID = 3600003;}
+	
+	int32 channel = 1;		//频道
+	int64 target_id = 2;	//目标ID，好友聊天是玩家ID
+	PbChatData chat_data = 3;//聊天信息
+}
+
+//聊天频道
+enum PbChatChannel {
+	NO_CHAT = 0;
+	WORLD_CHAT = 1;	//世界（本服）聊天
+	CROSS_CHAT = 2;	//跨服聊天
+	SYS_CHAT = 3;	//系统消息
+}
+
+
+//聊天数据，暂定，目前设计得比较简单
+message PbChatData {
+	int64 id = 1;			//聊天ID
+	int64 speaker_id = 2;	//说话者ID
+	string speaker_nick = 3;//说话者昵称
+	string head = 4;		//说话者头像
+	int32 sex = 5;			//性别
+	string content = 6;		//说话内容
+	int32 vip_level = 7;	//VIP等级
+	int32 level = 8;		//角色等级
+	int64 time = 9;			//说话时间
+}

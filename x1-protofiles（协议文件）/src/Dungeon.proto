@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.dungeon";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message DungeonInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2200001;}
+	repeated int32 normal_dungeons= 1;	//日常副本通已关ID
+}
+
+message PbDungeonBattleParam {
+	int32 aid_hero = 1;		//援军英雄标识
+}
+
+message PbDungeonBattleResult {
+	int32 dungeon_id = 1;				//副本ID
+	repeated PbThing rewards = 2;		//通关奖励
+}

@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.recharge";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//充值信息
+message RechargeInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1900001;}
+	
+	repeated int32 product_ids = 1;	//已经购买过的充值商品ID
+}
+
+//充值下单
+message RechargeOrderRequest {
+	enum Proto {UNKNOWN = 0; ID = 1900002;}
+	
+	int32 product_id = 1;	//充值商品ID
+	string product_data = 2;//杂七杂八的参数，根据不同商品传不同的值，传json格式字符串
+	string channel_identity = 3;	//渠道标识，如37、
+	bytes recharge_data = 4;		//不同渠道的个性化数据
+}
+message RechargeOrderResponse {
+	enum Proto {UNKNOWN = 0; ID = 1900002;}
+	
+	int32 product_id = 1;		//充值商品ID
+	string order_id = 2;		//订单ID
+	string extra_info = 3;		//透传参数，传给SDK的参数
+	string channel_identity = 4;//渠道标识，如37、
+	bytes recharge_data = 5;	//不同渠道的个性化数据
+}
+
+//代金券购买商品
+message RechargeVoucherOrderRequest {
+	enum Proto {UNKNOWN = 0; ID = 1900003;}
+	
+	int32 product_id = 1;	//充值商品ID
+	string product_data = 2;//杂七杂八的参数，根据不同商品传不同的值，传json格式字符串
+}
+message RechargeVoucherOrderResponse {
+	enum Proto {UNKNOWN = 0; ID = 1900003;}
+	
+	
+}
+
+//充值发货推送
+message RechargeGivingMessage {
+	enum Proto {UNKNOWN = 0; ID = 1900004;}
+	
+	int32 product_id = 1;			//充值商品ID
+	repeated PbThing things = 2;	//变更的物品列表
+}
+
+message PbRechargeData37 {
+	string appid = 1;
+	int32 game_id = 2;
+	int64 uid = 3;			//客户端不用填，只取值
+	int32 sid = 4;			//客户端不用填，只取值
+	string actor_id = 5;	//客户端不用填，只取值
+	string order_no = 6;	//客户端不用填，只取值
+	string money = 7;		//客户端不用填，只取值
+	int64 game_coin = 8;	//客户端不用填，只取值
+	int32 product_id = 9;	//客户端不用填，只取值
+	string subject = 10;	//客户端不用填，只取值
+	int32 time = 11;		//客户端不用填，只取值
+	string sign = 12;		//客户端不用填，只取值
+	string ext = 13;		//客户端不用填，只取值
+}
+
+//益乐充值参数
+message PbRechargeDataYiLe {
+	string amount = 1;		//支付金额，单位元，可传小数	客户端不用填，只取值
+	int64 role_id = 2;		//角色ID				客户端不用填，只取值
+	string role_name = 3;	//角色名				客户端不用填，只取值
+	int32 server_id = 4;	//角色所在区服ID		客户端不用填，只取值
+	string server_name = 5;	//角色所在区服名		客户端不用填，只取值
+	int32 goods_id = 6;		//购买商品ID			客户端不用填，只取值
+	string goods_desc = 7;	//购买商品描述		客户端不用填，只取值
+	string cp_order_id = 8;	//本次下单游戏订单号	客户端不用填，只取值
+	string ext = 9;			//透传参数			客户端不用填，只取值
+}
+
+//欧美wabo充值参数
+message PbRechargeDataWabo {
+	string callback_url = 1;//回调地址		客户端不用填，只取值
+	string amount = 2;		//支付金额，单位元，可传小数	客户端不用填，只取值
+	int64 role_id = 3;		//角色ID			客户端不用填，只取值
+	string role_name = 4;	//角色名			客户端不用填，只取值
+	int32 server_id = 5;	//角色所在区服ID	客户端不用填，只取值
+	string server_name = 6;	//角色所在区服名		客户端不用填，只取值
+	string goods_id = 7;	//购买商品ID		客户端不用填，只取值
+	string goods_desc = 8;	//购买商品描述		客户端不用填，只取值
+	string cp_order_id = 9;//本次下单游戏订单号	客户端不用填，只取值
+	string ext = 10;		//透传参数			客户端不用填，只取值
+}
+
+//福顺
+message PbRechargeDataFuShun {
+	string total_fee = 1;	//支付金额，单位分，可传小数	客户端不用填，只取值
+	int64 role_id = 2;		//角色ID				客户端不用填，只取值
+	string role_name = 3;	//角色名				客户端不用填，只取值
+	int32 server_id = 4;	//角色所在区服ID		客户端不用填，只取值
+	string server_name = 5;	//角色所在区服名		客户端不用填，只取值
+	int32 role_level = 6;	//玩家等级			客户端不用填，只取值
+	int32 vip_level = 7;	//VIP等级			客户端不用填，只取值
+	int32 product_id = 8;		//购买商品ID			客户端不用填，只取值
+	string product_name = 9;	//购买商品描述		客户端不用填，只取值
+	string cp_order_num = 10;	//本次下单游戏订单号	客户端不用填，只取值
+	string ext = 11;			//透传参数			客户端不用填，只取值
+}

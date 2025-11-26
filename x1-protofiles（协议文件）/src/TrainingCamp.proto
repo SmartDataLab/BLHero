@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.trainingcamp";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//训练营信息
+message TrainingCampInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 900001;}
+	
+	int32 train_level = 1; 		//训练等级
+	int32 expert_train_level = 2;	//高级训练等级
+	int32 max_peoples = 3;			//最大出战人数
+}
+
+//激活天赋
+message TrainingCampActivateTalentRequest {
+	enum Proto {UNKNOWN = 0; ID = 900002;}
+	
+	int32 type = 1;	//1普通，2高级
+}
+message TrainingCampActivateTalentResponse {
+	enum Proto {UNKNOWN = 0; ID = 900002;}
+	
+	int32 train_level = 1; 			//普通训练等级
+	int32 expert_train_level = 2;	//高级训练等级
+	int32 max_peoples = 3;			//最大出战人数
+}
+
+//战斗出战人数变化推送
+message TrainingCampTroopNumMessage {
+	enum Proto {UNKNOWN = 0; ID = 900003;}
+	
+	int32 max_peoples = 1;	//最大出战人数
+}

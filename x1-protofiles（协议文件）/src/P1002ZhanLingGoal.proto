@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//战令数据
+message ZhanLingGoalInfoRequest {
+    enum Proto {UNKNOWN = 0; ID = 2100201;}
+
+    int32 type_id = 1; //活动类型ID
+}
+message ZhanLingGoalInfoResponse {
+    enum Proto {UNKNOWN = 0; ID = 2100201;}
+    
+    int32 type_id = 1;					//活动类型ID
+    repeated PbTask tasks = 2;			//任务列表
+    repeated int32 premium_tasks = 3;	//已领取过高级奖励的任务ID
+    bool buy_premium = 4;  				//是否已经购买高级通行证
+}
+
+//一键领取战令目标奖励
+message ZhanLingGoalRewardRequest {
+    enum Proto {UNKNOWN = 0; ID = 2100202;}
+    
+    int32 type_id = 1; //活动类型ID
+}
+message ZhanLingGoalRewardResponse {
+    enum Proto {UNKNOWN = 0; ID = 2100202;}
+    
+    int32 type_id = 1; 					//活动类型ID
+    repeated PbTask tasks = 2;			//任务列表
+    repeated int32 premium_tasks = 3;	//已领取过高级奖励的任务ID
+}
+
+
+//活动配置请求
+message ZhanLingGoalCfgRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100203;}
+	
+	int32 type_id = 1;		//活动类型ID
+}
+message ZhanLingGoalCfgResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100203;}
+	
+	int32 type_id = 1;					//活动类型ID
+	repeated PbZhanLingGoalCfg cfgs = 2;	//活动配置
+}
+
+//购买高级战令成功推送
+message ZhanLingGoalRechargeMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100204;}
+
+	int32 type_id = 1;		//活动类型ID
+}
+
+message PbZhanLingGoalCfg {
+	int32 id = 1;
+	string task_type = 2;
+	repeated int32 task_params = 3;
+	int64 task_target_num = 4;
+	repeated PbItem free_reward = 5;
+	repeated PbItem premium_reward = 6;
+	int32 sort_index = 7;
+}

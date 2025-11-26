@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.goldenpig";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message GoldenPigInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1700001;}
+
+	int32 challenge_num = 1;//今日已挑战次数
+	int32 max_stage = 2;	//已通关的最大难度
+	int64 daily_time = 3;	//每日重置时间
+}
+
+
+message PbGoldenPigBattleParam {
+	int32 stage = 1;	//难度
+}
+
+message PbGoldenPigBattleResult {
+	int32 challenge_num = 1;		//今日已挑战次数
+	int32 max_stage = 2;			//已通关的最大层数
+	repeated PbThing rewards = 3;	//通关奖励
+	int32 free_times = 4;			//每日剩余免费次数
+}

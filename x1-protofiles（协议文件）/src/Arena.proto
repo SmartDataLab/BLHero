@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.arena";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+import "Formation.proto";
+
+//查询赛季前五用于主城显示
+message ArenaTopInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800001;}
+	
+}
+message ArenaTopInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800001;}
+	
+	repeated PbArenaTopPlayer top_players = 1;	//赛季前5
+}
+
+//竞技场概要信息，用于在入口时显示
+message ArenaResumeInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800002;}
+}
+message ArenaResumeInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800002;}
+	
+	int32 rank = 1;		//名次
+	int64 score = 2;	//积分
+	int64 settle_time = 3;	//结算时间戳，毫秒
+}
+
+//竞技场主页面信息
+message ArenaInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800003;}
+}
+message ArenaInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800003;}
+	
+	repeated PbArenaTopPlayer top_players = 1;	//赛季前3
+	PbArenaRanker my_rank = 2;	//我的排名
+	repeated PbArenaRanker competitors = 3;	//待挑战者列表
+	int32 challenge_num = 4;	//已挑战次数
+	int32 buy_num = 5;			//已购买挑战次数
+	int64 refresh_time = 6;		//刷新挑战者的冷却时间戳，毫秒
+}
+
+//战斗请求流程顺序ArenaChallengeRequest（得到返回后展示双方阵容）->EnterBattleRequest（进入战斗）->ZoneInfoRequest（创建怪物）->EnterZoneRequest（进入区域）
+//挑战玩家
+message ArenaChallengeRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800004;}
+	
+	int64 player_id = 1;	//对方玩家的ID
+	int32 server_id = 2;	//对方玩家的服务器ID
+	int32 main_hero = 3;	//我的队伍队长英雄标识
+	repeated PbFormationPos pos_list = 4;	//我的队伍站位信息
+}
+message ArenaChallengeResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800004;}
+	
+	PbArenaFighter attacker = 1;//进攻方
+	PbArenaFighter defender = 2;//防守方
+}
+
+//刷新挑战列表
+message ArenaRefreshRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800005;}
+}
+message ArenaRefreshResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800005;}
+	
+	repeated PbArenaRanker competitors = 1;	//待挑战者列表
+}
+
+//挑战记录
+message ArenaRecordRequest {
+	enum Proto {UNKNOWN = 0; ID = 3800006;}
+	
+	int32 type = 1;	//1进攻战报，2防守战报
+}
+message ArenaRecordResponse {
+	enum Proto {UNKNOWN = 0; ID = 3800006;}
+	
+	int32 type = 1;						//1进攻战报，2防守战报
+	repeated PbArenaRecord records = 2;	//战报记录
+}
+
+message PbArenaFighter {
+	string nick = 1;				//昵称
+	int64 score = 2;				//积分
+	int64 fighting = 3;				//战力
+	repeated PbArenaHero heroPoss = 4;	//出战英雄
+}
+
+message PbArenaHero {
+	int32 identity = 1;	//英雄标识
+	int32 pos = 2;		//站位
+}
+
+message PbArenaRanker {
+	int32 rank = 1;		//名次，0未上榜
+	int64 player_id = 2;//玩家ID
+	string nick = 3;	//昵称
+	int64 score = 4;	//积分
+	int64 fighting = 5;	//战斗力
+	string head = 6;	//头像
+	int32 server_id = 7;//玩家所在服务器ID
+	int32 image = 8;	//形象
+}
+
+
+message PbArenaTopPlayer {
+	int32 rank = 1;		//名次
+	int64 player_id = 2;//玩家ID
+	string nick = 3;	//昵称
+	int32 image = 4;	//形象
+	int64 fighting = 5;	//战力
+}
+
+message PbArenaRecord {
+	int64 player_id = 1;//玩家ID
+	string nick = 2;	//昵称
+	string head = 3;	//头像
+	int64 battle_time = 4;	//战斗时间戳，毫秒
+	int32 result = 5;	//1胜利，2失败
+	int32 score = 6;	//积分增减
+}
+
+message PbArenaBattleParam {
+	
+}
+
+message PbArenaBattleResult {
+	int64 battle_time = 1;	//战斗耗时时长，毫秒
+	int64 score = 2;		//积分的变化量 
+	repeated PbThing rewards = 3;//挑战奖励
+}

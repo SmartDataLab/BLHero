@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.xianshilibao";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//限时礼包数据推送
+message  XianShiLiBaoInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100501;}
+	
+	repeated PbXianShiLiBao gift_detail = 1;
+}
+
+//新礼包触发推送
+message XianShiLiPushDetailMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100502;}
+	
+	repeated PbXianShiLiBao gift_detail = 1;
+}
+
+
+//充值时的json格式：{"giftId":0}
+
+message PbXianShiLiBao {
+	int32 gift_id = 1;
+	bool buy = 2;
+	int64 end_time = 3;
+}

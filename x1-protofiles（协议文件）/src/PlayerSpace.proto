@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.playerspace";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//使用礼包码
+message GiftCodeUseRequest {
+	enum Proto {UNKNOWN = 0; ID = 210001;}
+
+	string code = 1;      //礼包码
+}
+message GiftCodeUseResponse {
+	enum Proto {UNKNOWN = 0; ID = 210001;}
+
+}

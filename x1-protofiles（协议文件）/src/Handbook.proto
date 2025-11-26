@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.handbook";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+message HandbookInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3900001;}
+
+	repeated PbHandbook handbooks = 1;	//图鉴
+}
+
+//图鉴激活
+message HandbookLevelUpRequest {
+	enum Proto {UNKNOWN = 0; ID = 3900002;}
+	
+	int32 book_identity = 1;	//图鉴标识
+	int32 ele_identity = 2;		//图鉴元素标识
+}
+message HandbookLevelUpResponse {
+	enum Proto {UNKNOWN = 0; ID = 3900002;}
+	
+	repeated PbHandbook handbooks = 1;	//图鉴
+}
+
+//领取图鉴进度积分奖励
+message HandbookTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3900003;}
+	
+	int32 book_identity = 1;//图鉴标识
+}
+message HandbookTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3900003;}
+	
+	int32 book_identity = 1;//图鉴标识
+	int32 reward_lv = 2;	//已经领取到的进度奖励等级
+}
+
+//领取图鉴元素奖励
+message HandbookIdentityRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3900004;}
+	
+	int32 book_identity = 1;	//图鉴标识
+	int32 ele_identity = 2;		//图鉴元素标识
+}
+message HandbookIdentityRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3900004;}
+	
+	int32 book_identity = 1;	//图鉴标识
+	int32 ele_identity = 2;		//图鉴元素标识
+	int32 reward_lv = 3;		//已经领取到的奖励等级
+	int32 point = 4;			//图鉴进度
+}
+
+//激活套装
+message HandbookSuitActiveRequest {
+	enum Proto {UNKNOWN = 0; ID = 3900005;}
+	
+	int32 suit_id = 1;	//套装ID
+}
+message HandbookSuitActiveResponse {
+	enum Proto {UNKNOWN = 0; ID = 3900005;}
+	
+	int32 suit_id = 1;	//套装ID
+}
+
+message PbHandbook {
+	int32 identity = 1;	//图鉴标识
+	int32 point = 2;	//积分
+	repeated PbBookDetail details = 3;	//详情
+	int32 reward_lv = 4;	//已经领取到的进度奖励等级
+	repeated int32 suits = 5;		//已经激活的套装
+}
+
+message PbBookDetail {
+	int32 identity = 1;	//图鉴元素标识
+	int32 level = 2;	//等级
+	int32 reward_lv = 3;//已经领取到的奖励等级
+}

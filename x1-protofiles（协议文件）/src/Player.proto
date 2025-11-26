@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.player";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//登录
+message LoginRequest {
+	enum Proto {UNKNOWN = 0; ID = 200001;}
+
+	string open_id = 1;		//SDK提供的openId
+	int32 server_id = 2;	//服务器ID
+	string device_type = 3;	//设备类型，ANDROID，IOS，H5，PC，OTHER
+	string device_id = 4;	//设备ID
+	int32 channel_id = 5;	//渠道ID
+	string channel_identity = 6;	//渠道标识，如37、
+	bytes channel_data = 7;	//不同渠道的个性化数据
+	bool re_connect = 8;	//是否断线重现
+}
+message LoginResponse {
+	enum Proto {UNKNOWN = 0; ID = 200001;}
+
+	LoginStatus status = 1;	//登录状态
+	int64 pid = 2;      	//玩家ID
+	int64 server_time = 3;	//服务器时间，毫秒
+	int64 offset_utc = 4;	//时区偏移，毫秒
+	string nick = 5;		//
+	string head = 6;		//头像
+	int32 level = 7;		//等级
+	int64 exp = 8;			//经验
+	int64 forbind_end_time = 9;	//封号结束时间
+	int32 change_name_times = 10; //修改名字次数
+	bool buy_privilege = 11;//是否已经买永久去广告特权
+	int32 vip_level = 12;	//VIP等级
+	int32 open_day = 13;	//开服天数
+	bool open_gm = 14;		//是否开启GM
+	bool is_create = 15;	//是不是创号登录
+	int64 create_time = 16;	//创号时间
+	int64 vip_exp = 17;		//VIP经验
+}
+
+//登出
+message LogoutRequest {
+	enum Proto {UNKNOWN = 0; ID = 200003;}
+}
+//登出的推送
+message LogoutMessage {
+	enum Proto {UNKNOWN = 0; ID = 200004;}
+
+	int32 type = 1;  			//登出类型，1异地登录，2闲时过长，3连接异常，4玩家登出，5连接断开，6封号，7强制下线，8服务器维护
+	int64 forbind_end_time = 2;	//封号结束时间 
+}
+
+//心跳
+message HeartBeatRequest {
+	enum Proto {UNKNOWN = 0; ID = 200005;}
+}
+message HeartBeatResponse {
+	enum Proto {UNKNOWN = 0; ID = 200005;}
+
+	int64 server_time = 1;  //服务器时间，毫秒
+}
+
+//修改名字
+message ChangeNameRequest {
+	enum Proto {UNKNOWN = 0; ID = 200006;}
+	
+	string new_name = 1;			//新名字
+	string channel_identity = 2;	//渠道标识，如37、
+}
+message ChangeNameResponse {
+	enum Proto {UNKNOWN = 0; ID = 200006;}
+	
+	string new_name = 1;//新名字
+	int32 change_name_times = 2; //修改名字次数
+
+}
+
+message PlayerInfoChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 200007;}
+	
+	bool buy_privilege = 1;//是否已经买永久去广告特权
+}
+
+//登录推送结束
+message PlayerPushEndMessage {
+	enum Proto {UNKNOWN = 0; ID = 200008;}
+	
+}
+
+//服务器调试用
+message PlayerModuleInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 200009;}
+	
+	string module = 1;	//模块名字
+}
+message PlayerModuleInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 200009;}
+	
+}
+
+message PlayerMoreInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 200010;}
+}
+message PlayerMoreInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 200010;}
+}
+
+message PlayerMoreInfoEndMessage {
+	enum Proto {UNKNOWN = 0; ID = 200011;}
+}
+
+//窃听推送给目标玩家的消息，客户端忽略
+message PlayerWiretapRequest {
+	enum Proto {UNKNOWN = 0; ID = 200012;}
+	
+	int64 player_id = 1;	//玩家ID
+}
+message PlayerWiretapResponse {
+	enum Proto {UNKNOWN = 0; ID = 200012;}
+}
+
+//简易登录
+message EasyLoginRequest {
+	enum Proto {UNKNOWN = 0; ID = 200013;}
+
+	string open_id = 1;		//SDK提供的openId
+	int32 server_id = 2;	//服务器ID
+	string device_type = 3;	//设备类型，ANDROID，IOS，H5，PC，OTHER
+}
+
+
+
+enum LoginStatus {
+	NONE = 0;
+	NORMAL = 1;		//正常
+	FORBID = 2;		//被封号
+	MAINTAIN = 3;	//服务器维护中
+	VIOLATION = 4;	//违规
+}
+
+//37的渠道数据
+message Pb37ChannelData {
+	string appid = 1;		//应用ID，37sdk提供
+	int32 game_id = 2;		//游戏ID，37sdk提供
+	string fx_c_game_id = 3;//37sdk提供
+	string app_ext = 4;		//37sdk提供
+	string guid = 5;		//进入标识，37sdk提供
+}
+
+message PbYiLeChannelData {
+	string uid = 1;			//uid
+	string token = 2;		//登录token
+	string login_time = 3;	//登录时间
+}
+
+message PbWaboChannelData {
+	string token = 1;		//登录token
+	string uid = 2;			//uid
+}
+
+message PbFuShunChannelData {
+	string code = 1;	//登录code
+}

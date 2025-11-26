@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.bag";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+import "Equip.proto";
+
+//背包数据
+message BagInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 500001;}
+	
+	repeated PbItem grids = 1;		//道具
+	repeated PbEquip equips = 2;	//装备
+	repeated PbItem resources = 3;	//数值资源类
+}
+
+//背包中使用道具
+message BagUseItemRequest {
+	enum Proto {UNKNOWN = 0; ID = 500003;}
+	
+	int32 item_id = 1;	//道具ID
+	int64 num = 2;		//数量
+	int32 option = 3;	//选项
+}
+message BagUseItemResponse {
+	enum Proto {UNKNOWN = 0; ID = 500003;}
+	
+}
+
+
+//资源、物品变更推送
+message ThingChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 500002;}
+	
+	repeated PbThing things = 1;//变更的物品列表
+	int32 show_type = 2;		//展示方式，0不展示，1不展示，2弹窗展示，3飘字展示
+}
+
+//快捷购买
+message QuickBuyingRequest {
+	enum Proto {UNKNOWN = 0; ID = 500004;}
+	
+	int32 item = 1;	//将购买的道具ID
+	int64 num = 2;	//将购买的道具数量
+}
+message QuickBuyingResponse {
+	enum Proto {UNKNOWN = 0; ID = 500004;}
+}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//充值时的json格式：{"giftId":0}
+
+//直购信息
+message ZhiGouInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100901;}
+
+	int32 type_id = 1;	//活动类型ID
+}
+message ZhiGouInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100901;}
+
+	int32 type_id = 1;			//活动类型ID
+	repeated PbKeyV keyvs = 2;	//限购信息
+}
+
+//购买推送
+message ZhiGouBuyMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100902;}
+	
+	int32 type_id = 1;	//活动类型ID
+	PbKeyV keyvs = 2;	//限购信息
+}
+
+//直购配置
+message ZhiGouCfgRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100903;}
+	
+	int32 type_id = 1;	//活动类型ID
+}
+message ZhiGouCfgResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100903;}
+	
+	int32 type_id = 1;	//活动类型ID
+	repeated PbZhiGouCfg cfgs = 2;	//
+}
+
+//领取免费奖励
+message ZhiGouTakeFreeRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100904;}
+	
+	int32 type_id = 1;	//活动类型ID
+	int32 id = 2;		//礼包ID
+}
+message ZhiGouTakeFreeResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100904;}
+	
+	int32 type_id = 1;	//活动类型ID
+	PbKeyV keyv = 2;	//限购信息
+}
+
+message PbZhiGouCfg {
+	int32 id = 1;	//礼包ID
+	int32 charge_product_id = 2;
+	repeated PbItem diff_reward = 3;
+	int32 limit_type = 4;
+	int32 limit_num = 5;
+}

@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.arena";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "Arena.proto";
+
+//赛季奖励结算
+message ArenaSeasonSettleRpcMessage {
+	enum Proto {UNKNOWN = 0; ID = 3810001;}
+	
+	repeated PbArenaSettleRanker rankers = 1;	//结算时的参赛者
+}
+
+//每日奖励结算
+message ArenaDailySettleRpcMessage {
+	enum Proto {UNKNOWN = 0; ID = 3810002;}
+	
+	repeated PbArenaSettleRanker rankers = 1;	//结算时的参赛者
+}
+
+
+message ArenaResumeInfoRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810003;}
+	
+	int32 server_id = 1;	//当前玩家的服务器ID
+}
+message ArenaResumeInfoRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810003;}
+	
+	int32 rank = 1;		//名次
+	int64 score = 2;	//积分
+	int64 settle_time = 3;	//结算时间戳，毫秒
+}
+
+message ArenaInfoRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810004;}
+	
+	int32 server_id = 1;	//当前玩家的服务器ID
+	bool refresh = 2;		//是否需要更新挑战者
+}
+message ArenaInfoRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810004;}
+
+	repeated PbArenaTopPlayer top_players = 1;	//赛季前3
+	PbArenaRanker my_rank = 2;				//我的排名
+	repeated PbArenaRanker competitors = 3;	//待挑战者列表
+}
+
+message ArenaRefreshRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810005;}
+	
+	int32 server_id = 1;	//当前玩家的服务器ID
+}
+message ArenaRefreshRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810005;}
+	
+	repeated PbArenaRanker competitors = 1;	//待挑战者列表
+}
+
+//战斗结束后发送至跨服更新
+message ArenaBattleEndRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810006;}
+
+	int64 player_id = 1;	//我的玩家ID
+	int32 server_id = 2;	//我的服务器ID
+	int64 other_player_id = 3;	//对方的玩家ID
+	int32 other_server_id = 4;	//对方的服务器ID
+	int32 result = 5;	//1胜利，2失败
+}
+message ArenaBattleEndRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810006;}
+	
+	int64 player_id = 1;//我的玩家ID
+	int32 server_id = 2;//我的服务器ID
+	int64 score = 3;	//积分
+	int32 rank = 4;		//名次
+}
+
+
+//战斗结束后发送至跨服更新
+message ArenaChallengeFighterRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810007;}
+
+	int64 player_id = 1;	//对方玩家的ID
+	int32 server_id = 2;	//对方玩家所在的服务器ID
+}
+message ArenaChallengeFighterRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810007;}
+	
+	int64 player_id = 1;	//对方玩家的ID
+	int32 server_id = 2;	//对方玩家所在的服务器ID
+	string fighter_json = 3;//对方玩家的战斗数据
+}
+
+//战斗结束后发送至跨服更新
+message ArenaChallengeRobotRpcRequest {
+	enum Proto {UNKNOWN = 0; ID = 3810008;}
+
+	int64 player_id = 1;	//机器人的ID
+	int32 server_id = 2;	//0
+}
+message ArenaChallengeRobotRpcResponse {
+	enum Proto {UNKNOWN = 0; ID = 3810008;}
+	
+	int64 player_id = 1;	//机器人的ID
+	int32 server_id = 2;	//0
+	string fighter_json = 3;//机器人的战斗数据
+}
+
+
+message PbArenaSettleRanker {
+	int64 player_id = 1;
+	int32 rank = 2;
+}

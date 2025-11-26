@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.friend";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+
+message FriendInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 3500001;}
+	
+	int32 id = 1;
+	string nick = 2;	
+}
+message FriendInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3500001;}
+	
+	int32 id = 1;
+	string nick = 2;	
+}

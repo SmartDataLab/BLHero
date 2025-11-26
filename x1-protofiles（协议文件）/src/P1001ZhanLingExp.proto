@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//战令数据
+message ZhanLingExpInfoRequest {
+    enum Proto {UNKNOWN = 0; ID = 2100101;}
+
+    int32 type_id = 1; //活动类型ID
+}
+message ZhanLingExpInfoResponse {
+    enum Proto {UNKNOWN = 0; ID = 2100101;}
+    
+    int32 type_id = 1;			//活动类型ID
+    int32 level = 2;			//等级
+    int64 exp = 3;				//经验值
+    int32 free_reward_lv = 4;	//已领取到的免费奖励等级
+    int32 premium_reward_lv = 5;//已领取到的高级奖励等级
+    bool buy_premium = 6;  		//是否已经购买高级通行证
+}
+
+//领取战令等级奖励
+message ZhanLingExpRewardRequest {
+    enum Proto {UNKNOWN = 0; ID = 2100102;}
+    
+    int32  type_id = 1; //活动类型ID
+}
+message ZhanLingExpRewardResponse {
+    enum Proto {UNKNOWN = 0; ID = 2100102;}
+    
+    int32  type_id = 1; 		//活动类型ID
+    int32 free_reward_lv = 2;	//已领取到的免费奖励等级
+    int32 premium_reward_lv = 3;//已领取到的高级奖励等级
+}
+
+//购买战令等级
+message ZhanLingExpBuyLevelRequest {
+    enum Proto {UNKNOWN = 0; ID = 2100103;}
+    
+    int32 type_id = 1;		//活动类型ID
+    int32 buy_level = 2;	//购买几级
+}
+message ZhanLingExpBuyLevelResponse {
+    enum Proto {UNKNOWN = 0; ID = 2100103;}
+    
+    int32 type_id = 1;	//活动类型ID
+    int32 level = 2;	//当前等级
+    int32 free_reward_lv = 3;	//已领取到的免费奖励等级
+    int32 premium_reward_lv = 4;//已领取到的高级奖励等级
+}
+
+//活动配置请求
+message ZhanLingExpCfgRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100104;}
+	
+	int32 type_id = 1;		//活动类型ID
+}
+message ZhanLingExpCfgResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100104;}
+	
+	int32 type_id = 1;					//活动类型ID
+	repeated PbZhanLingExpCfg cfgs = 2;	//活动配置
+}
+
+//购买高级战令成功推送
+message ZhanLingExpRechargeMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100105;}
+
+	int32 type_id = 1;		//活动类型ID
+	int32 level = 2;		//当前等级
+	int32 free_reward_lv = 3;	//已领取到的免费奖励等级
+    int32 premium_reward_lv = 4;//已领取到的高级奖励等级
+}
+
+message PbZhanLingExpCfg {
+	int32 level = 1;
+	int32 need_exp = 2;
+	repeated PbItem free_reward = 3;
+	repeated PbItem premium_reward = 4;
+	PbItem buy_level_cost = 5;
+}

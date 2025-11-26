@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.exchangeshop";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message ExchangeShopInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2400001;}
+
+	repeated PbShop shops = 1;
+	int32 open_day = 2;			//开服天数
+}
+
+message ExchangeShopExchangeRequest {
+	enum Proto {UNKNOWN = 0; ID = 2400002;}
+
+	int32 shop_id = 1;		//兑换商店表 商店ID
+	int32 product_id = 2;	//商品ID
+	int32 exchange_num = 3;	//兑换数量
+}
+message ExchangeShopExchangeResponse {
+	enum Proto {UNKNOWN = 0; ID = 2400002;}
+
+	int32 shop_id = 1;					//商店ID
+	PbProduct product = 2;
+	PbThingReceipt receipt = 3;
+	int32 exchange_num = 4;				//兑换数量
+}
+message PbShop {
+	int32 shop_id = 1;	//商店ID
+	repeated PbProduct products = 2;
+	int64 resetTime = 3;//重置时间
+	int32 round = 4; 	//期数
+}
+
+message PbProduct {
+	int32 product_id = 1;	//商品ID
+	int64 bought_num = 2 ;	//本次重置玩家已经兑换数量
+	int32 free_num = 3;		//已使用的免费次数
+	int32 adv_num = 4;		//已使用的广告次数
+}

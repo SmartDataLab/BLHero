@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.achievement";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+message AchievementInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 3700001;}
+	
+	int64 point = 1;				//成就点数
+	int32 point_reward_id = 2;		//已经领取到的成就点数奖励ID
+	repeated PbTask tasks = 3;		//任务列表
+	repeated int32 over_tasks = 4;	//已经完结的任务
+}
+
+//领取任务奖励
+message AchievementTaskRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3700002;}
+	
+	int32 task_id = 1;	//任务ID
+}
+message AchievementTaskRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3700002;}
+	
+	int32 task_id = 1;		//任务ID
+	PbTask next_task = 2;	//下一个任务
+}
+
+//领取成就点数奖励
+message AchievementPointRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 3700003;}
+	
+}
+message AchievementPointRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 3700003;}
+	
+	int32 point_reward_id = 1;	//已经领取到的成就点数奖励ID
+}
+
+

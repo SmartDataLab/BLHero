@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//冲榜奖励预览
+message ChongBangRewardPreviewRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100801;}
+	
+	int32 type_id = 1;	//活动类型ID
+}
+message ChongBangRewardPreviewResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100801;}
+	
+	int32 type_id = 1;	//活动类型ID
+	repeated PbChongBangReward rewards = 2;	//奖励预览列表
+}
+
+message PbChongBangReward {
+	int32 rank_up = 1;
+	int32 rank_down = 2;
+	repeated PbItem items = 3;
+}

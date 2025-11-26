@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.firstrecharge";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+
+message FirstRechargeInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2800001;}
+	
+	int64 daily_time = 1;	//每日重置时间
+	repeated PbFirstRechargeData recharge_data = 2;
+}
+
+//领取奖励
+message FirstRechargeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2800002;}
+	
+	int32 recharge_id = 1;	//充值商品ID
+}
+message FirstRechargeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2800002;}
+	
+	PbFirstRechargeData recharge_data = 1;
+}
+
+//首充标识变化推送
+message FirstRechargePushMessage {
+	enum Proto {UNKNOWN = 0; ID = 2800003;}
+	
+	PbFirstRechargeData recharge_data = 1;
+}
+
+message PbFirstRechargeData {
+	int32 recharge_id = 1;	//充值商品ID
+	int32 reward_day = 2;	//已经领取几天的奖励
+	int32 can_take_day = 3;	//可以领取到的奖励天数
+}

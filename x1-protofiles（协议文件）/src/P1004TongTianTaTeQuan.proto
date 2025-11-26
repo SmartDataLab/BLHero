@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//通天塔特权
+message TongTianTaTeQuanRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100401;}
+}
+message TongTianTaTeQuanResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100401;}
+	
+	repeated PbTTTTQDetail details = 1;	//详情数据
+}
+
+//通天塔特权领取奖励
+message TTTTQTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100402;}
+	
+	int32 tower_type = 1;	//塔类型
+}
+message TTTTQTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100402;}
+	
+	PbTTTTQDetail detail = 1;	//详情数据
+}
+
+//特权充值成功推送
+message TTTTQRechargeMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100403;}
+	
+	PbTTTTQDetail detail = 1;	//详情数据
+}
+
+
+
+//通天塔特权详情
+message PbTTTTQDetail {
+	int32 tower_type = 1;	//塔类型
+	int32 round = 2;		//当前期数
+	bool open_high = 3;		//是否已开启高级奖励
+	int32 normal_reward_lv = 4;	//已领取的普通奖励等级
+	int32 high_reward_lv = 5;	//已领取的高级奖励等级
+}

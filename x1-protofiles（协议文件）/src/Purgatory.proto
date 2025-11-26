@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.purgatory";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+import "MiniStruct.proto";
+
+//炼狱轮回数据
+message PurgatoryInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2600001;}
+	
+	int32 level = 1;				//最高阶数（相当于sceneId）
+	int32 free_times = 2;			//玩家当天已使用的免费加成次数
+	int32 times = 3;				//剩余加成次数
+	repeated PbLevelAttr attrs = 4; //玩家当前赛季加成 阶-属性
+	int64 next_reset_time = 5; 		//下次重置时间
+}
+
+//购买加成次数
+message PurgatoryBuyPlusTimesRequest {
+	enum Proto {UNKNOWN = 0; ID = 2600002;}
+}
+
+message PurgatoryBuyPlusTimesResponse {
+	enum Proto {UNKNOWN = 0; ID = 2600002;}
+	
+	int32 times = 1;	//剩余次数
+}
+
+
+//洗练
+message PurgatoryRefineRequest {
+	enum Proto {UNKNOWN = 0; ID = 2600003;}
+	
+	int32 level = 1;  //阶数 准备洗练那一阶的属性
+	int32 status = 2; //状态 1是 2不是  是否是胜利后唤起，该参数后端不做验证
+}
+message PurgatoryRefineResponse {
+	enum Proto {UNKNOWN = 0; ID = 2600003;}
+	
+	PbAttr attr = 1;	//临时属性
+}
+
+//确认洗练
+message PurgatoryConfirmRequest {
+	enum Proto {UNKNOWN = 0; ID = 2600004;}
+	
+	int32 level = 1;	//阶数洗练那一阶的属性
+}
+message PurgatoryConfirmResponse {
+	enum Proto {UNKNOWN = 0; ID = 2600004;}
+	
+	PbAttr attr = 1;	//确认属性
+}
+
+//购买洗练道具
+message PurgatoryBuyRefineItemRequest {
+	enum Proto {UNKNOWN = 0; ID = 2600005;}
+}
+message PurgatoryBuyRefineItemResponse {
+	enum Proto {UNKNOWN = 0; ID = 2600005;}
+	
+	PbItem rewards = 1;//发放道具
+}
+
+
+message PbPurgatoryBattleParam {
+	int32 plus_flag = 1; //奖励加成标识 0为不加成 1为加成
+}
+message PbPurgatoryBattleResult {
+	int32 level = 1;  				//当前阶
+	int32 max_level = 2;    		//最大阶
+	repeated PbThing rewards = 3;	//通关奖励
+	PbAttr attr = 4;				//打完随出来的属性 或者当前阶的属性
+}
+
+message PbLevelAttr {
+	int32 level = 1;
+	PbAttr pbAttr = 2;
+}

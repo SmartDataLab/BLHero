@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.tips";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//后端推送提示信息，后端提示最好可以跟前端提示进行颜色区分，比如前端提示白色，后端提示红色或者黄色
+message TipsMessage {
+	enum Proto {UNKNOWN = 0; ID = 100001;}
+	
+	int32 code = 1;				//提示码
+	repeated string params = 2;	//参数
+	string dev_tips = 3;		//开发阶段的提示语
+}

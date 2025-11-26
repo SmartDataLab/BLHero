@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.mail";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//邮件数据
+message MailInfoResponse {
+    enum Proto {UNKNOWN = 0; ID = 600001;}
+
+    repeated PbMailData mails = 1; //邮件数据
+}
+
+//领取附件奖励
+message MailReceiveOneRequest {
+    enum Proto {UNKNOWN = 0; ID = 600002;}
+
+    int64 id = 1;        //邮件ID
+}
+message MailReceiveOneResponse {
+    enum Proto {UNKNOWN = 0; ID = 600002;}
+
+    int64 id = 1;        //邮件ID
+    bool receive = 2;    //是否已领
+}
+//批量领取，一键领取
+message MailReceiveBatchRequest {
+    enum Proto {UNKNOWN = 0; ID = 600003;}
+}
+message MailReceiveBatchResponse {
+    enum Proto {UNKNOWN = 0; ID = 600003;}
+    
+    repeated int64 ids = 1;	//变为已读已领取的邮件ID
+    repeated PbThing things = 2;	//批量领取到的奖励
+    bool has_full = 3;				//背包是否已经满了
+}
+
+//批量删除已读邮件
+message MailDeleteBatchRequest {
+    enum Proto {UNKNOWN = 0; ID = 600004;}
+}
+message MailDeleteBatchResponse {
+    enum Proto {UNKNOWN = 0; ID = 600004;}
+
+    repeated int64 ids = 1; //成功删除的邮件
+}
+//删除一封邮件
+message MailDeleteOneRequest {
+    enum Proto {UNKNOWN = 0; ID = 600005;}
+    
+    int64 id = 1;//邮件ID
+}
+message MailDeleteOneResponse {
+    enum Proto {UNKNOWN = 0; ID = 600005;}
+    
+    int64 id = 1;//邮件ID
+}
+
+//读邮件
+message MailReadRequest {
+    enum Proto {UNKNOWN = 0; ID = 600006;}
+
+    int64 id = 1; //邮件ID
+}
+message MailReadResponse {
+    enum Proto {UNKNOWN = 0; ID = 600006;}
+
+    int64 id = 1;	//邮件ID
+    bool read = 2;	//是否已读
+}
+
+//新邮件推送
+message MailPushMessage {
+    enum Proto {UNKNOWN = 0; ID = 600007;}
+
+    repeated PbMailData mails = 1; //邮件数据
+}
+
+
+message PbMailData {
+    int64 id = 1;					//邮件ID
+    int32 template_id = 2;			//邮件模板ID
+    repeated string title = 3;		//邮件标题参数
+    repeated string content = 4;	//邮件内容参数
+    repeated PbItem attachment = 5;	//附件
+    bool read = 6;					//是否已读
+    bool receive = 7;				//是否已领
+    int64 send_time = 8;			//发送时间，毫秒
+}

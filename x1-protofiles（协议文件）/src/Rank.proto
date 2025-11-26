@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.rank";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//排行榜数据
+message RankRequest {
+    enum Proto {UNKNOWN = 0; ID = 2300001;}
+
+    int32 rank_type = 1;	//排行榜类型 1等级 2战力 3英雄 4装备 5炼狱轮回
+    int32 page = 2;			//页码，从1开始 直接发1就好
+}
+message RankResponse {
+    enum Proto {UNKNOWN = 0; ID = 2300001;}
+
+    int32 rank_type = 1;			//排行榜类型
+    int32 page = 2;             	//页码，从1开始
+    repeated int32 reward_id = 3;	//已领取奖励列表 奖励Id（有数据则说明已领取）
+    repeated PbRanker rank_list = 4;//排行榜列表
+    PbRanker self_rank = 5;			//自己的排行数据
+    int32 achieve_id = 6;			//达成奖励（有数据则说明可领取）
+    repeated PbRankFirstReach first_reaches = 7;	//新触发的首位达成信息
+}
+
+
+message RankInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2300003;}
+	
+	repeated PbRankInfo rank_infos = 1;	//排行榜信息列表
+}
+
+//领取排行榜奖励
+message RankRewardRequest {
+    enum Proto {UNKNOWN = 0; ID = 2300002;}
+    
+    int32 rank_type = 1;	//排行榜类型，参考PbRankType
+    int32 reward_id = 2;	//奖励ID
+}
+message RankRewardResponse {
+    enum Proto {UNKNOWN = 0; ID = 2300002;}
+    
+    int32 rank_type = 1;			//排行榜类型，参考PbRankType
+    repeated int32 reward_id = 2;	//已领取奖励列表奖励Id （有数据则说明已领取）
+}
+
+//有新奖励达成时的推送
+message RankRewardPushMessage {
+	enum Proto {UNKNOWN = 0; ID = 2300004;}
+	
+	int32 rank_type = 1;	//排行榜类型，参考PbRankType
+	int32 achieve_id = 2;	//达成奖励（有数据则说明可领取）
+	repeated PbRankFirstReach first_reaches = 3;	//新触发的首位达成信息
+}
+
+
+//排行榜对象
+message PbRanker {
+    int64 entity_id = 1;	//实体ID
+    string name = 2;    	//名字
+    int64 score = 3;    	//分数
+    int64 sub_score = 4;	//二级分数
+    int32 rank = 5;			//排名
+    string head = 6;    	//头像
+    bytes data = 7;			//排行榜个性化数据，结合排行榜类型做解析，需要判空
+}
+
+
+enum PbRankType {
+	NONE_RANK_TYPE = 0;
+	LEVEL_RANK = 1;			//等级排行榜，PbPlayerNormalTop3
+	FIGHTING_RANK = 2;		//主线战力排行榜，PbPlayerNormalTop3
+	HERO_RANK = 3;			//英雄基础战力排行榜，PbPlayerNormalTop3
+	EQUIP_RANK = 4;			//装备排行榜，PbPlayerNormalTop3
+	PURGATORY_RANK = 5;		//炼狱轮回阶数排行榜，PbPlayerNormalTop3
+	VILLAGE_RANK = 6;		//村庄保卫关卡排行榜，PbPlayerNormalTop3
+	FOG = 7;				//迷雾解锁排行榜，PbPlayerNormalTop3
+}
+
+//普通的玩家前三信息
+message PbPlayerNormalTop3 {
+	int32 leader_hero = 1;	//对长英雄标识
+}
+
+message PbRankInfo {
+	int32 rank_type = 1;			//排行榜类型
+	int32 achieve_id = 2;			//达成奖励（有数据则说明可领取）
+	repeated int32 reward_id = 3;	//已领取奖励列表 奖励Id（有数据则说明已领取）
+}
+
+//排行榜首位达成
+message PbRankFirstReach {
+	int32 id = 1;		//对应奖励配置中的奖励ID
+	int64 player_id = 2;//玩家ID
+	string nick = 3;	//昵称
+	string head = 4;	//头像
+	int64 time = 5;		//达成时间戳，毫秒
+}

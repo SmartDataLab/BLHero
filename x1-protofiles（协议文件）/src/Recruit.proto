@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.recruit";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//召唤信息，刷新倒计时结束时也请求info
+message RecruitInfoRequest {
+    enum Proto {UNKNOWN = 0; ID = 1600001;}
+
+}
+message RecruitInfoResponse {
+    enum Proto {UNKNOWN = 0; ID = 1600001;}
+
+    int32 stage = 1;                    //当前阶段，1：10次后紫色概率提升，2：10次后橙色概率提升
+    int32 stage_num = 2;                //当前阶段的次数
+    repeated PbRecruitSlot slots = 3;    //可召唤英雄
+    int64 refresh_time = 4;                //刷新时间
+    int32 discount_num = 5;                //今日已使用折扣次数
+    int32 ad_free_num = 6;                //已观看广告次数
+    int32 multiple = 7;                    //当前使用的倍数
+    bool activateFlag = 8;                 //酒馆激活标志 true 为激活
+    int32 total_num = 9;                    //招募总次数
+    int64 recruit_point = 10 ;              //招募总积分
+}
+
+//召唤英雄
+message RecruitHeroRequest {
+    enum Proto {UNKNOWN = 0; ID = 1600002;}
+    int32 multiple = 1;    //倍数
+
+}
+message RecruitHeroResponse {
+    enum Proto {UNKNOWN = 0; ID = 1600002;}
+
+    int32 multiple = 1;        //倍数
+    repeated PbRecruitSlot slot = 2;    //召唤槽位信息
+    int32 discount_num = 3;                //今日已使用折扣次数
+    int32 stage = 4;                    //当前阶段，1：10次后紫色概率提升，2：10次后橙色概率提升
+    int32 stage_num = 5;                //当前阶段的次数
+    int32 total_num = 6;                    //招募总次数
+    int64 recruit_point = 7 ;              //招募总积分
+}
+
+
+//手动召唤刷新
+message RecruitRefreshRequest {
+    enum Proto {UNKNOWN = 0; ID = 1600003;}
+
+    int32 cost_type = 1;    //1放弃当前召唤，2使用刷新券，3使用钻石，4广告免费刷新 5抽完三个英雄 6到达系统时间刷新
+}
+message RecruitRefreshResponse {
+    enum Proto {UNKNOWN = 0; ID = 1600003;}
+
+    repeated PbRecruitSlot slots = 1;	//可召唤英雄
+    int64 refresh_time = 2;				//刷新时间
+    int32 multiple = 3;					//当前使用的倍数
+    int32 ad_free_num = 4;				//已观看广告次数
+    int32 stage = 5;					//品质阶段
+    int32 stage_num = 6;				//当前阶段中的进度数量
+}
+
+//召唤槽位
+message PbRecruitSlot {
+    int32 identity = 1;    //英雄标识
+    int32 fragment = 2;    //碎片数量
+    int64 score = 3;    //积分
+    int32 take = 4;        //1为未中 2为已抽
+    bool  multiple_score = 5;
+}

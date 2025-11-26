@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.equip";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+
+//穿戴数据
+message EquipWearInfoResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200002;}
+
+    repeated int64 equip_id = 1;	//唯一id
+    int64 fighting = 2;				//主线编队战力
+    int64 equip_fighting = 3;		//装备提供的战力
+}
+
+//穿戴&替换
+message EquipChangeRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200003;}
+
+    int64 equip_id = 1; //需要穿戴的装备唯一id
+}
+message EquipChangeResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200003;}
+
+    int64 equip_id = 1; 			//变更的穿戴的装备唯一id
+    int64 fighting = 2;				//主线编队战力
+    int64 equip_fighting = 3;		//装备提供的战力
+}
+
+//鉴定副属性
+message EquipVerifyRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200004;}
+
+    int64 equip_id = 1; //装备唯一id
+}
+message EquipVerifyResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200004;}
+
+    PbEquip pbEquip = 1;
+}
+//锁定装备
+message EquipLockRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200005;}
+
+    int64 equip_id = 1; //装备ID
+}
+message EquipLockResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200005;}
+
+    int64 equip_id = 1; //装备ID
+    bool lock = 2;
+}
+//一件换装
+message EquipOneClickRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200006;}
+
+}
+message EquipOneClickResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200006;}
+    
+    repeated int64 equip_id = 1;
+    int64 fighting = 2;				//主线编队战力
+    int64 equip_fighting = 3;		//装备提供的战力
+}
+//分解装备
+message EquipSalvageRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200007;}
+    
+    int64 equip_id = 1;//装备唯一id
+}
+message EquipSalvageResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200007;}
+    
+    int64 equip_id = 1;    //装备
+}
+//批量分解装备
+message EquipBatchSalvageRequest {
+    enum Proto {UNKNOWN = 0; ID = 1200008;}
+    
+    repeated int64 equip_id = 1;	//装备唯一id
+}
+message EquipBatchSalvageResponse {
+    enum Proto {UNKNOWN = 0; ID = 1200008;}
+    
+    repeated int64 equips = 1;    //装备
+}
+
+//GM推送
+message EquipGmDeleteMessage {
+	enum Proto {UNKNOWN = 0; ID = 1200009;}
+	
+	repeated int64 equips = 1;    //被GM删除的装备ID
+}
+
+
+
+message PbEquip {
+    int64 id = 1;        //装备唯一ID
+    int32 identity = 2;    //装备标识
+    bool lock = 3;        //是否锁定
+    bool wear = 4;        //是否穿戴
+    bool appraise = 5;    //是否已鉴定
+    repeated PbEquipAttr sub_attrs = 6;  //副属性词条
+    int64 score = 7;    //评分
+}
+message PbEquipAttr {
+    int32 id = 1;  		//词条配置ID
+    int32 attr_id = 2;	//附属性ID
+    int64 value = 3;
+}

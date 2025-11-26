@@ -1,0 +1,52 @@
+syntax = "proto3";
+package pb;
+option java_package = "pb.xiugou.x1.protobuf.battleattr";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+message PbBattleAttr {
+	int64 hp = 1;	//当前血量
+	int64 maxHp = 2;	//生命
+	int64 atk = 3;	//攻击
+	int64 def = 4;	//防御
+	int64 hpRate = 5;	//血量加成
+	int64 atkRate = 6;	//攻击加成
+	int64 defRate = 7;	//防御加成
+	int64 dmgRate = 8;	//伤害加成
+	int64 hit = 9;	//命中
+	int64 dodge = 10;	//闪避
+	int64 crit = 11;	//暴击
+	int64 critDmgRate = 12;	//暴击伤害
+	int64 vampireRate = 13;	//吸血
+	int64 reduceDmg = 14;	//减伤固定值
+	int64 reduceDmgRate = 15;	//伤害减免
+	int64 cdSpdRate = 16;	//冷却时间
+	int64 moveSpd = 17;	//移动速度
+	int64 moveSpdRate = 18;	//移动速度加成
+	int64 atkSpd = 19;	//攻击速度
+	int64 atkSpdRate = 20;	//攻击速度加成
+	int64 dmgbl = 21;	//技能伤害加成
+	int64 dmg = 22;	//增伤固定值
+	int64 llmaxRate = 23;	//人族生命加成
+	int64 lldmgRate = 24;	//人族伤害加成
+	int64 mjmaxRate = 25;	//灵族生命加成
+	int64 mjdmgRate = 26;	//灵族伤害加成
+	int64 zlmaxRate = 27;	//仙族生命加成
+	int64 zldmgRate = 28;	//仙族伤害加成
+	int64 woodDmg = 29;	//伐木伤害
+	int64 mineDmg = 30;	//挖矿伤害
+	int64 llmax = 31;	//人族生命固定值
+	int64 lldmg = 32;	//人族攻击固定值
+	int64 mjmax = 33;	//灵族生命固定值
+	int64 mjdmg = 34;	//灵族攻击固定值
+	int64 zlmax = 35;	//仙族生命固定值
+	int64 zldmg = 36;	//仙族攻击固定值
+	int64 battleRange = 37;	//进战范围
+	int64 llpvedmg = 38;	//人族伙伴对怪物伤害加成
+	int64 mjpvedmg = 39;	//灵族伙伴对怪物伤害加成
+	int64 zlpvedmg = 40;	//仙族伙伴对怪物伤害加成
+	int64 pvedmg = 41;	//对怪物伤害加成
+	int64 fovRange = 42;	//视野范围
+	int64 reducecrit = 43;	//暴击抵抗
+	int64 hpBrate = 44;	//某养成系统内基础生命加成
+	int64 atkBrate = 45;	//某养成系统内基础攻击加成
+}

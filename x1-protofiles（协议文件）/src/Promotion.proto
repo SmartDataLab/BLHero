@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//活动控制数据
+message PromotionInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100001;}
+	
+	repeated PbPromotionControl promotion_controls = 1;	//活动控制数据
+}
+
+//活动变更推送
+message PromotionInfoMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100002;}
+	
+	PbPromotionControl promotion_control = 1;
+}
+
+//活动红点推送
+message PromotionRedPointMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100003;}
+
+	int32 type_id = 1;		//活动类型ID
+	bool red_point = 2;		//是否显示红点
+}
+
+//开始时间->沉寂时间->结束时间
+//存在一些活动，在开始时间与沉寂时间期间会进行数据记录，比如记录任务进度的增长或获取活动积分，
+//在沉寂时间与活动结束时间期间，活动将不在记录数据变化，如不在记录任务进度增加或产出活动积分，但可以在此时间段内消耗资源（比如活动积分）进行商品购买
+message PbPromotionControl {
+	int32 type_id = 1;		//活动类型ID
+	int32 stage = 2;		//活动所在阶段，0空闲，1进行阶段，2沉寂阶段，3结束
+	int64 start_time = 3;	//活动开始时间
+	int64 still_time = 4;	//活动沉寂时间
+	int64 end_time = 5;		//活动结束时间
+	bool red_point = 6;		//是否显示红点
+}

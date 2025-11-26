@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.task";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//玩家任务变化推送
+message PlayerTaskChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 1300001;}
+	
+	int32 task_system_type = 1;	//任务系统类型，对应PbTaskSystemType
+	repeated PbTask tasks = 2;	//有数据变化的任务
+}
+
+enum PbTaskSystemType {
+	NONE_TASK_TYPE = 0;	//什么都不是
+	MAINLINE = 1;		//主线任务
+	DAILY_TASK = 2;		//每日任务
+	WEEKLY_TASK = 3;	//每周任务
+	QRMB_TASK = 4;		//七日目标
+}

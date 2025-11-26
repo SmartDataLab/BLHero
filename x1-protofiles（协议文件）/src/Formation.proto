@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.formation";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//布阵信息
+message FormationInfoResponse{
+	enum Proto {UNKNOWN = 0; ID = 1000001;}
+
+	repeated PbFormation formations = 1;  //布阵
+}
+
+//编队变化推送
+message FormationChangeMessage {
+	enum Proto {UNKNOWN = 0; ID = 1000002;}
+	
+	repeated PbFormation formations = 1;  //布阵
+}
+
+//保存阵容
+message FormationSaveRequest {
+	enum Proto {UNKNOWN = 0; ID = 1000003;}
+	
+	int32 type = 1;							//布阵类型
+	int32 main_hero = 2;					//可出战的英雄上限
+	repeated PbFormationPos pos_list = 3;	//站位信息
+}
+message FormationSaveResponse {
+	enum Proto {UNKNOWN = 0; ID = 1000003;}
+	
+	PbFormation formation = 1;  //布阵
+}
+
+
+message PbFormation {
+	int32 type = 1;							//布阵类型
+	int32 main_hero_identity = 2;			//可出战的英雄上限
+	repeated PbFormationPos pos_list = 3;	//站位信息
+	int64 fighting = 4;						//编队战力
+	int64 equip_fighting = 5;				//装备提供的战力
+	bool manual_change = 6;					//玩家是否修改过
+}
+message PbFormationPos {
+	int32 pos = 1;    	//位置，从1开始
+	int32 identity = 2;  //英雄类型
+}
+
+enum PbFormationType {
+	NO_FORMATION = 0;
+	MAIN = 1;			//主线布阵
+	TOWER = 2;			//普通塔
+	TOWER_STRENGTH = 3;	//力量塔布阵
+	TOWER_AGILITY = 4;	//敏捷塔布阵
+	TOWER_WISDOM = 5;	//智力塔布阵
+	GOLDEN_PIG = 6;		//黄金猪布阵
+}

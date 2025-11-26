@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.ministruct";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+
+
+//物品，包含道具、资源、英雄、装备
+message PbThing {
+	int32 identity = 1;	//物品标识
+	int64 num = 2;		//数量，小于0则标识扣减
+	bytes data = 3;		//扩展数据，根据道具配置的逻辑类型进行解析
+}
+
+message PbThingReceipt {
+	repeated PbThing things = 1;	//
+}
+
+message PbItem {
+	int32 item = 1;	//道具ID
+	int64 num = 2;	//数量
+}
+
+message PbTask {
+	int32 id = 1;		//任务ID
+	int64 progress = 2;	//任务进度
+	int32 status = 3;	//任务状态，0未完成，1已完成，2已领取奖励
+}
+
+//PbThing.identity是角色经验的时候，data数据的反序列化就是PbPlayerExp，需要判断PbThing.data是否为空
+message PbPlayerExp {
+	int32 old_level = 1;
+	int32 new_level = 2;
+	repeated int32 open_functions = 3;
+	int64 curr_exp = 4;
+}
+//PbThing.identity是角色vip经验的时候，data数据的反序列化就是PbPlayervipExp，需要判断PbThing.data是否为空
+message PbPlayerVipExp {
+	int32 old_level = 1;
+	int32 new_level = 2;
+	int64 curr_exp = 3;
+}
+//各种开启功能的结构数据
+message PbSceneOpening {
+	int32 id = 1;				//对应配置ID， 根据不同业务系统读取不同配置
+	repeated PbItem pay = 2;	//已经缴纳的资源与数量
+}
+
+message PbKeyV {
+	int32 key = 1;
+	int32 value = 2;
+}
+
+message PbAttr {
+	int32 attrId = 1;	
+	int64 value = 2;
+}

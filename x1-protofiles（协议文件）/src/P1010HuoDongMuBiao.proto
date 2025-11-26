@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//活动目标
+message HuoDongMuBiaoInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101001;}
+
+	int32 type_id = 1;	//活动类型ID
+}
+message HuoDongMuBiaoInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101001;}
+
+	int32 type_id = 1;			//活动类型ID
+	repeated PbTask tasks = 2;	//任务信息
+}
+
+//领取任务奖励
+message HuoDongMuBiaoTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101002;}
+
+	int32 type_id = 1;	//类型ID
+	int32 task_id = 2;	//任务ID
+	int32 select_item = 3;	//自选奖励道具ID
+}
+message HuoDongMuBiaoTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101002;}
+
+	int32 type_id = 1;	//类型ID
+	PbTask tasks = 2;	//任务信息
+	repeated PbTask new_tasks = 3;	//新一轮的奖励
+}
+
+//请求活动配置
+message HuoDongMuBiaoCfgRequest {
+	enum Proto {UNKNOWN = 0; ID = 2101003;}
+	
+	int32 type_id = 1;	//类型ID
+}
+message HuoDongMuBiaoCfgResponse {
+	enum Proto {UNKNOWN = 0; ID = 2101003;}
+	
+	int32 type_id = 1;						//类型ID
+	repeated PbHuoDongMuBiaoCfg cfgs = 2;	//活动配置数据
+}
+
+message PbHuoDongMuBiaoCfg {
+	int32 id = 1;
+	int32 index = 2;
+	int64 task_target_num = 3;
+	repeated PbItem select_rewards = 4;
+	repeated PbItem rewards = 5;
+	string desc = 6;
+}

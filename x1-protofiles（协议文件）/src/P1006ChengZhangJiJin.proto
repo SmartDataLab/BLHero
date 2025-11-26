@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.promotion";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//成长基金
+message ChengZhangJiJinRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100601;}
+}
+message ChengZhangJiJinResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100601;}
+	
+	int32 round = 1;				//期数
+	bool open = 2;					//是否已购买本期基金
+	repeated int32 reward_ids = 3;	//已领取的奖励ID
+}
+
+//成长基金领取奖励
+message CZJJTakeRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 2100602;}
+	
+	int32 reward_id = 1;	//奖励ID
+}
+message CZJJTakeRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 2100602;}
+	
+	int32 round = 1;		//期数，期数跟客户端本地数据不一致时表示进入到下一期
+	bool open = 2;			//是否已购买本期基金
+	int32 reward_id = 3;	//刚成功已领取的奖励ID
+}
+
+//成长基金充值成功推送
+message CZJJRechargeMessage {
+	enum Proto {UNKNOWN = 0; ID = 2100603;}
+	
+	bool open = 1;	//是否已购买本期基金
+}

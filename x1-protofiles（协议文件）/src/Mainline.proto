@@ -1,0 +1,273 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.mainline";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+import "MiniStruct.proto";
+
+//主线数据
+message MainlineInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 400001;}
+	
+	repeated PbMainlineScene scenes = 1;//场景数据
+	int64 next_box_time = 2;			//下次出现地图宝箱的时间，毫秒
+	int32 camp_adv_num = 3;				//已进行的高级修行次数
+	int32 hang_boss_id = 4;				//离线挂机的BossID
+	PbTask task = 5;					//当前正在做的任务
+}
+
+//场景迷雾解锁
+message MainlineFogOpenRequest {
+	enum Proto {UNKNOWN = 0; ID = 400004;}
+	
+	int32 fog_id = 1;	//迷雾ID
+}
+message MainlineFogOpenResponse {
+	enum Proto {UNKNOWN = 0; ID = 400004;}
+	
+	int32 unlock_fog = 1;			//成功解锁的区域ID，为0时表示只开启了一部分
+	PbSceneOpening opening_fog = 2;	//开启进度，需判断空值
+}
+
+//传送点解锁
+message MainlineTeleportOpenRequest {
+	enum Proto {UNKNOWN = 0; ID = 400005;}
+	
+	int32 teleport_id = 1;	//传送点ID
+}
+message MainlineTeleportOpenResponse {
+	enum Proto {UNKNOWN = 0; ID = 400005;}
+	
+	int32 unlock_teleport = 1;			//成功解锁的传送点ID，为0时表示只开启了一部分
+	PbSceneOpening opening_teleport = 2;//开启进度，需判断空值
+}
+
+//野外npc素材缴纳
+message MainlineNpcOpenRequest {
+	enum Proto {UNKNOWN = 0; ID = 400006;}
+	
+	int32 npc_id = 1;	//npc
+}
+message MainlineNpcOpenResponse {
+	enum Proto {UNKNOWN = 0; ID = 400006;}
+	
+	int32 unlock_npc = 1;			//成功缴纳的npcID，为0时表示只缴纳了一部分
+	PbSceneOpening opening_npc = 2;	//开启进度，需判断空值
+	PbThingReceipt receipt = 3; 	//物品变化回执
+}
+
+//设置“回城”传送门
+message MainlineSetPortalRequest {
+	enum Proto {UNKNOWN = 0; ID = 400007;}
+	
+	int32 portal_x = 1;	//设置传送门坐标
+	int32 portal_y = 2;
+}
+message MainlineSetPortalResponse {
+	enum Proto {UNKNOWN = 0; ID = 400007;}
+	
+	int32 portal_x = 1;	//设置传送门坐标
+	int32 portal_y = 2;
+}
+
+//使用“回城”传送门
+message MainlineUsePortalRequest {
+	enum Proto {UNKNOWN = 0; ID = 400008;}
+}
+message MainlineUsePortalResponse {
+	enum Proto {UNKNOWN = 0; ID = 400008;}
+	
+	int32 portal_x = 1;	//传送门坐标
+	int32 portal_y = 2;
+}
+
+//收割树木、矿堆
+message MainlineHarvestRequest {
+	enum Proto {UNKNOWN = 0; ID = 400010;}
+	
+	int32 zone_id = 1; 		//区域ID
+	int32 harvest_id = 2;	//收获物ID
+}
+message MainlineHarvestResponse {
+	enum Proto {UNKNOWN = 0; ID = 400010;}
+	
+	int32 zone_id = 1; 		//区域ID
+	int32 harvest_id = 2;	//收获物ID
+	int64 reborn_time = 3;	//重生时间，毫秒
+}
+
+//领取主线任务奖励
+message MainlineTaskRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 400011;}
+
+}
+message MainlineTaskRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 400011;}
+	
+	PbTask task = 1;	//下一个任务
+}
+
+//使用传送点
+message MainlineUseTeleportRequest {
+	enum Proto {UNKNOWN = 0; ID = 400012;}
+	
+	int32 teleport_id = 1;
+}
+message MainlineUseTeleportResponse {
+	enum Proto {UNKNOWN = 0; ID = 400012;}
+	
+}
+
+//宝箱信息
+message MainlineBoxInfoRequest {
+	enum Proto {UNKNOWN = 0; ID = 400013;}
+	
+	int32 box_type = 1;	//1BOSS箱子，2地图箱子
+}
+message MainlineBoxInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 400013;}
+	
+	PbTreasureBox treasure_box = 1;	//箱子信息
+	int32 left_box_num = 2;			//剩余的箱子数量
+}
+
+//领取宝箱信息
+message MainlineTakeBoxRequest {
+	enum Proto {UNKNOWN = 0; ID = 400014;}
+	
+	int32 box_type = 1;	//1BOSS箱子，2地图箱子
+	bool watch_ad = 2;	//是不是观察广告
+}
+message MainlineTakeBoxResponse {
+	enum Proto {UNKNOWN = 0; ID = 400014;}
+	
+}
+
+//刷新地图宝箱
+message MainlineRefreshBoxRequest {
+	enum Proto {UNKNOWN = 0; ID = 400015;}
+}
+message MainlineRefreshBoxResponse {
+	enum Proto {UNKNOWN = 0; ID = 400015;}
+	
+	int64 next_box_time = 1;		//下次出现地图宝箱的时间，毫秒
+	bool has_box = 2;				//是否需要刷新出宝箱，true需要
+}
+
+
+//开始露营
+message MainlineStartCampRequest {
+	enum Proto {UNKNOWN = 0; ID = 400016;}
+}
+message MainlineStartCampResponse {
+	enum Proto {UNKNOWN = 0; ID = 400016;}
+	
+	int64 camp_adv_end_time = 1;	//高级露营结束时间，毫秒
+}
+
+//结束露营
+message MainlineEndCampRequest {
+	enum Proto {UNKNOWN = 0; ID = 400017;}
+}
+message MainlineEndCampResponse {
+	enum Proto {UNKNOWN = 0; ID = 400017;}
+	
+	repeated PbThing things = 1;//露营期间累计获得的物品，仅用于展示
+	int64 curr_camp_time = 2;	//本次露营持续的时间，毫秒
+}
+
+//挑战Boss时发一下这个打点
+message MainlineChallengeBossRequest {
+	enum Proto {UNKNOWN = 0; ID = 400018;}
+	
+	int32 boss_id = 1;	//bossId
+}
+message MainlineChallengeBossResponse {
+	enum Proto {UNKNOWN = 0; ID = 400018;}
+}
+
+//开启高级露营
+message MainlineOpenCampAdvRequest {
+	enum Proto {UNKNOWN = 0; ID = 400019;}
+	
+}
+message MainlineOpenCampAdvResponse {
+	enum Proto {UNKNOWN = 0; ID = 400019;}
+	
+	int64 camp_adv_end_time = 1;	//高级露营结束时间，毫秒
+	int32 camp_adv_num = 2;			//已进行的高级修行次数
+}
+
+//请求主线杀怪数量
+message MainlineKillMonsterNumRequest {
+	enum Proto {UNKNOWN = 0; ID = 400020;}
+}
+message MainlineKillMonsterNumResponse {
+	enum Proto {UNKNOWN = 0; ID = 400020;}
+	
+	int32 kill_num = 1;
+}
+
+//领取挂机奖励
+message MainlineTakeHangRewardRequest {
+	enum Proto {UNKNOWN = 0; ID = 400022;}
+}
+message MainlineTakeHangRewardResponse {
+	enum Proto {UNKNOWN = 0; ID = 400022;}
+	
+	int64 hang_time = 1;		//已挂机时间
+	PbThingReceipt receipt = 2;	//挂机收益
+}
+
+//远离时间宝箱时进行重置
+message MainlineTimeBoxFarawayRequest {
+	enum Proto {UNKNOWN = 0; ID = 400023;}
+	
+}
+message MainlineTimeBoxFarawayResponse {
+	enum Proto {UNKNOWN = 0; ID = 400023;}
+	
+	int64 next_box_time = 1;	//下次出现地图宝箱的时间，毫秒
+}
+
+//解锁下一场景入口传送门
+message MainlineOpenNextMessage {
+	enum Proto {UNKNOWN = 0; ID = 400024;}
+	
+	int32 curr_scene_id = 1;	//当前的场景ID
+	bool curr_open_next = 2;	//是否已经开启下一场景
+	PbMainlineScene new_scene = 3;	//新解锁的场景数据
+}
+
+message PbMainlineScene {
+	int32 scene_id = 1;							//场景ID
+	int32 max_stage = 2;						//最大可挑战阶段
+	repeated int32 first_stages = 3;			//已领取首通奖励的阶段
+	int32 curr_stage = 4;						//当前挑战阶段
+	repeated int32 teleports = 5;				//已经开启的传送点
+	repeated PbSceneOpening opening_teleports = 6;	//正在开启的传送点
+	repeated int32 fogs = 7;					//已经开启的迷雾
+	repeated PbSceneOpening opening_fogs = 8;	//正在开启的迷雾
+	repeated int32 npcs = 9;					//已经完成缴纳的npc
+	repeated PbSceneOpening opening_npcs = 10;	//正在缴纳的npc
+	int32 portal_x = 11;						//传送门坐标，为0表示没有传送门
+	int32 portal_y = 12;						//传送门
+	repeated int32 dungeons = 13;				//已通关的地下城副本ID
+	bool open_next = 14;						//是否已经开启下一场景
+}
+
+message PbTreasureBox {
+	int64 disappear_time = 1;	//消失时间
+	int32 box_type = 2;			//箱子类型
+	int32 box_arg = 3;			//箱子参数，根据箱子类型来用	
+}
+
+
+message PbMainlineBattleParam {
+	int32 stage = 1;
+}
+message PbMainlineBattleResult {
+	int32 revive_num = 1;	//已复活次数
+}

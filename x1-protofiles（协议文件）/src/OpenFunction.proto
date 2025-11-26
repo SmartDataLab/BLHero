@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package pb;
+
+option java_package = "pb.xiugou.x1.protobuf.openfunction";
+option csharp_namespace = "pb.xiugou.x1.protobuf";
+
+//已开启的功能数据
+message OpenFunctionInfoResponse {
+	enum Proto {UNKNOWN = 0; ID = 1100001;}
+	
+	repeated int32 open_function_ids = 1;
+	repeated int32 new_open_function_ids = 2;	//新开启的功能，比如新版本更新时，大R已经超过新功能的开启条件，则需要提示新功能的开启
+	repeated PbGuide guides = 3;				//已完成的新手引导步骤
+}
+
+//功能开启的推送
+message OpenFunctionMessage {
+	enum Proto {UNKNOWN = 0; ID = 1100002;}
+	
+	int32 open_function_id = 1;
+}
+
+//完成某个步骤的新手引导
+message FinishGuideRequest {
+	enum Proto {UNKNOWN = 0; ID = 1100003;}
+	
+	int32 group = 1;
+	int32 step = 2;
+}
+message FinishGuideResponse {
+	enum Proto {UNKNOWN = 0; ID = 1100003;}
+	
+	PbGuide guide = 1;	//引导数据
+}
+
+message PbGuide {
+	int32 group = 1;
+	int32 step = 2;
+}
