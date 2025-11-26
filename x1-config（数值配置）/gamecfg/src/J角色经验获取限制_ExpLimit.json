@@ -1,0 +1,1 @@
+[{"id":1,"limitMin":0,"limitMax":7200,"expAdd":1,"name":"兴奋","nameLang":"ExpLimit_Name_1"},{"id":2,"limitMin":7201,"limitMax":10800,"expAdd":0.75,"name":"正常","nameLang":"ExpLimit_Name_2"},{"id":3,"limitMin":10801,"limitMax":14400,"expAdd":0.5,"name":"疲劳","nameLang":"ExpLimit_Name_3"},{"id":4,"limitMin":14401,"limitMax":0,"expAdd":0.25,"name":"脱力","nameLang":"ExpLimit_Name_4"}]

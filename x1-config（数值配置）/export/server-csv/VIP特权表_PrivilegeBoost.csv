@@ -1,0 +1,7 @@
+"#name PrivilegeBoost","#unique type",""
+"type","name","privilege"
+"int","string","keyv[]"
+"*","*","*"
+"特权id","名称","特权类型"
+"10001","秘境特权","108#0"
+"10002","秘境特权","103#0"

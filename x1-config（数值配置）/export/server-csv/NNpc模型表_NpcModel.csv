@@ -1,0 +1,8 @@
+"#name NpcModel","#unique id",""
+"id","name"
+"int","lang"
+"*","*"
+"npc模型ID","npc名字"
+"1","木匠"
+"2","矿工"
+"3","肉贩"

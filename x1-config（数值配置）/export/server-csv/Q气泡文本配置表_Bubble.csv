@@ -1,0 +1,7 @@
+"#name Bubble","#unique id","",""
+"id","objectType","playObject"
+"int","int","int"
+"*","*","*"
+"气泡ID","对象类型","播放对象"
+"1","1","1"
+"2","1","2"
