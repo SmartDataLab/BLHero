@@ -1,0 +1,15 @@
+classname %sCfg
+
+
+package com.xiugou.x1.design.module;
+
+
+format cost com.xiugou.x1.design.struct.CostThing
+format reward com.xiugou.x1.design.struct.RewardThing
+format attr com.xiugou.x1.battle.config.Attr
+format keyv com.xiugou.x1.design.struct.Keyv
+format range com.xiugou.x1.design.struct.Range
+format buff com.xiugou.x1.battle.config.BuffTrigger
+format randItem com.xiugou.x1.design.struct.RandomItem
+format attrTrigger com.xiugou.x1.battle.config.AttrTrigger
+format monster com.xiugou.x1.design.struct.Monster

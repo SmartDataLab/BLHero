@@ -1,0 +1,28 @@
+classname CFG_%s
+
+
+import App from "../../App";
+import DesignCache from "../../config/base/DesignCache";
+import DesignDataNotFoundError from "../../config/base/DesignDataNotFoundError";
+import { X1SeparatorDesignParser } from "../../config/X1SeparatorDesignParser";
+import { Reward } from "../../config/struct/Reward";
+import { Keyv } from "../../config/struct/Keyv";
+import { Cost } from "../../config/struct/Cost";
+import { RandomItem } from "../../config/struct/RandomItem";
+
+
+format cost Cost
+format reward Reward
+format keyv Keyv
+format randItem RandomItem
+
+
+#	private static instance: %s = null;
+#	public static get Instance(): %s {
+#		if(%s.instance === null) {
+#			%s.instance = new %s();
+#			let dataList: object[] = App.ResManager.readConfigFile("gamecfg/" + %s.instance.fileName);
+#			%s.instance.LoadObjects(dataList, new X1SeparatorDesignParser());
+#		}
+#		return %s.instance;
+#	}

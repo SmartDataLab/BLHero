@@ -1,0 +1,33 @@
+classname %sCfg
+
+
+namespace X1Design
+
+
+using System;
+using UnityEngine;
+using YYDesign;
+
+
+format cost X1Design.CostThing
+format reward X1Design.RewardThing
+format attr X1Design.Attr
+format keyv X1Design.Keyv
+format randItem X1Design.RandomItem
+format monster X1Design.Monster
+format range X1Design.Range
+format buff X1Design.BuffTrigger
+format condiattr X1Design.CondiAttr
+
+
+#		private static %s instance;
+#		public static %s Instance {
+#			get {
+#				if(instance == null) {
+#					instance = new();
+#					TextAsset textAsset = Resources.Load<TextAsset>("config/" + instance.FileName);
+#					instance.LoadData(textAsset.text, new X1SeparatorDesignParser());
+#				}
+#				return instance;
+#			}
+#		}
